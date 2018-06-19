@@ -1,0 +1,221 @@
+# ============================================================================
+
+# HADOOP =====================================================================
+
+# =======================================================================================
+export SRV_1='hadoop-alpha'
+export SRV_2='hadoop-beta'
+export SRV_3='hadoop-gamma'
+export SRV_1_IP='192.168.56.3'
+export SRV_2_IP='192.168.56.4'
+export SRV_3_IP='192.168.56.5'
+# =======================================================================================
+
+
+
+read -p 'Digite o hostname do primeiro servidor: ' SRV_1
+read -p 'Digite o IP do primeiro servidor: ' SRV_1_IP
+read -p 'Digite o hostname do segundo servidor: ' SRV_2
+read -p 'Digite o IP do segundo servidor: ' SRV_2_IP
+read -p 'Digite o hostname do terceiro servidor: ' SRV_3
+read -p 'Digite o IP do terceiro servidor: ' SRV_3_IP
+
+cat << EOF >> /etc/hosts
+${SRV_1_IP} ${SRV_1}.local ${SRV_1}
+${SRV_2_IP} ${SRV_2}.local ${SRV_2}
+${SRV_3_IP} ${SRV_3}.local ${SRV_3}
+EOF
+
+
+groupadd -r hadoop
+
+useradd -rm -c 'Hadoop User' -s /bin/bash -d /var/lib/hadoop -k /etc/skel -g hadoop hadoop
+
+
+cat << EOF > /etc/profile.d/hadoop.sh
+#!/bin/bash
+
+export HADOOP_HOME='/usr/local/hadoop'
+export HADOOP_INSTALL="\${HADOOP_HOME}"
+export PATH="\${PATH}:\${HADOOP_HOME}/bin:\${HADOOP_HOME}/sbin"
+export HADOOP_MAPRED_HOME="\${HADOOP_HOME}"
+export HADOOP_COMMON_HOME="\${HADOOP_HOME}"
+export HADOOP_HDFS_HOME="\${HADOOP_HOME}"
+export YARN_HOME="\${HADOOP_HOME}"
+export HADOOP_COMMON_LIB_NATIVE_DIR="\${HADOOP_HOME}/lib/native"
+export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${HADOOP_COMMON_LIB_NATIVE_DIR}"
+export HADOOP_OPTS="-Djava.library.path=\${HADOOP_COMMON_LIB_NATIVE_DIR} -XX:-PrintWarnings -Djava.net.preferIPv4Stack=true"
+export HADOOP_CONF_DIR="/etc/hadoop"                                   
+export HADOOP_LOG_DIR='/var/log/hadoop'
+export HADOOP_TMP_DIR='/var/lib/hadoop/tmp'
+export HADOOP_DATANODE_DIR='/var/lib/hadoop/hdfs/datanode'
+export HADOOP_NAMENODE_DIR='/var/lib/hadoop/hdfs/namenode'
+export HDFS_NAMENODE_USER='hadoop'
+export HDFS_DATANODE_USER='hadoop'
+export HDFS_SECONDARYNAMENODE_USER='hadoop'
+export YARN_RESOURCEMANAGER_USER='hadoop'
+export YARN_NODEMANAGER_USER='hadoop'
+EOF
+
+source /etc/profile.d/hadoop.sh
+
+cd /usr/local
+
+read -p 'Digite a versão (X.Y.Z) do Hadoop a ser baixada: ' HADOOP_VERSION
+
+wget -c http://ftp.unicamp.br/pub/apache/hadoop/common/hadoop-${HADOOP_VERSION}/hadoop-${HADOOP_VERSION}.tar.gz
+
+tar xf hadoop-${HADOOP_VERSION}.tar.gz
+
+mv hadoop-${HADOOP_VERSION} hadoop
+
+rm -f hadoop-${HADOOP_VERSION}.tar.gz
+
+
+find hadoop/ -name *.cmd -delete
+
+mv hadoop/etc/hadoop /etc/
+
+su - hadoop -c "ssh-keygen -t rsa -P '' -f ~/.ssh/id_rsa && cat ~/.ssh/id_rsa.pub > ~/.ssh/authorized_keys && chmod 600 ~/.ssh/*"
+
+sed 's/PasswordAuthentication no/PasswordAuthentication yes/g' -i /etc/ssh/sshd_config
+
+
+cat << EOF > ${HADOOP_CONF_DIR}/core-site.xml
+<configuration>
+<property>
+        <name>fs.defaultFS</name>
+        <value>hdfs://${SRV_1}:9000/</value>
+</property>
+<property>
+        <name>dfs.permissions</name>
+        <value>false</value>
+</property>
+<property>
+        <name>hadoop.tmp.dir</name>
+        <value>${HADOOP_TMP_DIR}</value>
+</property>
+</configuration>
+EOF
+
+
+
+cat << EOF > ${HADOOP_CONF_DIR}/hdfs-site.xml
+<configuration>
+<property>
+ <name>dfs.secondary.http.address</name>
+        <value>${SRV_1}:50090</value>
+        <description>Secondary NameNode hostname</description>
+</property>
+<property>
+        <name>dfs.data.dir</name>
+        <value>${HADOOP_DATANODE_DIR}</value>
+        <final>true</final>
+</property>
+<property>
+        <name>dfs.name.dir</name>
+        <value>${HADOOP_NAMENODE_DIR}</value>
+        <final>true</final>
+</property>
+<property>
+        <name>dfs.blocksize</name>
+        <value>67108864</value>
+</property>
+<property>
+        <name>dfs.replication</name>
+        <value>3</value>
+</property>
+</configuration>
+EOF
+
+cat << EOF > ${HADOOP_CONF_DIR}/mapred-site.xml
+<configuration>
+<property>
+        <name>mapreduce.framework.name</name>
+        <value>yarn</value>
+</property>
+</configuration>
+EOF
+
+cat << EOF > ${HADOOP_CONF_DIR}/yarn-site.xml
+<configuration>
+<!-- Site specific YARN configuration properties -->
+<property>
+        <name>yarn.nodemanager.aux-services</name>
+        <value>mapreduce_shuffle</value>
+</property>
+<property>
+        <name>yarn.nodemanager.aux-services.mapreduce.shuffle.class</name>
+        <value>org.apache.hadoop.mapred.ShuffleHandler</value>
+</property>
+<property>
+        <name>yarn.scheduler.minimum-allocation-mb</name>
+        <value>256</value>
+</property>
+<property>
+        <name>yarn.scheduler.maximum-allocation-mb</name>
+        <value>2048</value>
+</property>
+<property>
+        <name>yarn.scheduler.maximum-allocation-vcores</name>
+        <value>1</value>
+</property>
+<property>
+        <name>yarn.resourcemanager.resource-tracker.address</name>
+        <value>${SRV_1}:8025</value>
+</property>
+<property>
+        <name>yarn.resourcemanager.scheduler.address</name>
+        <value>${SRV_1}:8030</value>
+</property>
+<property>
+        <name>yarn.resourcemanager.address</name>
+        <value>${SRV_1}:8040</value>
+</property>
+</configuration>
+EOF
+
+cat << EOF > ${HADOOP_CONF_DIR}/hadoop-env.sh
+source /etc/profile.d/java.sh
+source /etc/profile.d/hadoop.sh
+EOF
+
+echo "${SRV_1}" > ${HADOOP_CONF_DIR}/masters
+
+cat << EOF > ${HADOOP_CONF_DIR}/slaves
+${SRV_2}
+${SRV_3}
+EOF
+
+
+mkdir -p ${HADOOP_LOG_DIR} ${HADOOP_DATANODE_DIR} ${HADOOP_NAMENODE_DIR} 
+
+chown -R hadoop: /usr/local/hadoop /var/{lib,log}/hadoop /etc/hadoop/
+
+su - hadoop -c 'hdfs namenode -format'
+
+su - hadoop -c 'start-dfs.sh'
+
+su - hadoop -c 'start-yarn.sh'
+
+su - hadoop
+
+hdfs dfs -mkdir /teste
+
+wget -c https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-4.15.3.tar.xz -P /tmp
+
+hdfs dfs -put /tmp/linux-4.15.3.tar.xz /teste/
+
+hdfs dfs -ls /teste
+Found 1 items
+-rw-r--r--   1 hadoop supergroup  102188708 2018-02-13 17:02 /teste/linux-4.15.3.tar.xz
+
+hdfs dfs -ls -h /teste
+Found 1 items
+-rw-r--r--   1 hadoop supergroup     97.5 M 2018-02-13 17:02 /teste/linux-4.15.3.tar.xz
+
+hdfs dfs -get /teste/linux-4.15.3.tar.xz /tmp/
+
+ls -lh /tmp/linux-4.15.3.tar.xz 
+-rw-r--r-- 1 hadoop hadoop 98M Feb 14 09:46 /tmp/linux-4.15.3.tar.xz
+
