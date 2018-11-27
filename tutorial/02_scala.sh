@@ -1,15 +1,17 @@
 # ============================================================================
 # Scala
 
+read -p 'Digite a versão de Scala a ser baixada: ' SCALA_VERSION
+
 cd /usr/local/
 
-wget -c https://downloads.lightbend.com/scala/2.12.4/scala-2.12.4.tgz
+wget -c https://downloads.lightbend.com/scala/${SCALA_VERSION}/scala-${SCALA_VERSION}.tgz
 
-tar xf scala-2.12.4.tgz
+tar xf scala-${SCALA_VERSION}.tgz
 
-mv scala-2.12.4 scala
+mv scala-${SCALA_VERSION} scala
 
-rm -f scala-2.12.4.tgz
+rm -f scala-${SCALA_VERSION}.tgz
 
 cat << EOF > /etc/profile.d/scala.sh
 export SCALA_HOME='/usr/local/scala'

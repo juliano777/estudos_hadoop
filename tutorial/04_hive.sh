@@ -17,6 +17,9 @@ cat << EOF > /etc/profile.d/hive.sh
 #!/bin/bash
 
 export HIVE_HOME='/usr/local/hive'
+export HIVE_CONF_DIR="\${HIVE_HOME}/conf"
+export HADOOP_CLASSPATH="\${HADOOP_CLASSPATH}:\${HIVE_HOME}/lib"
+export HIVE_PORT='10000'
 
 if [ -z \${CLASSPATH} ]; then
     export CLASSPATH="\${HIVE_HOME}/lib"
@@ -38,49 +41,52 @@ wget -c https://jdbc.postgresql.org/download/postgresql-42.2.2.jar -P /usr/local
 
 cat << EOF > ${HIVE_HOME}/conf/hive-site.xml
 <configuration>
-<property>
-  <name>javax.jdo.option.ConnectionURL</name>
-  <value>jdbc:postgresql://localhost/db_metastore</value>
-</property>
- 
-<property>
-  <name>javax.jdo.option.ConnectionDriverName</name>
-  <value>org.postgresql.Driver</value>
-</property>
- 
-<property>
-  <name>javax.jdo.option.ConnectionUserName</name>
-  <value>user_hive</value>
-</property>
- 
-<property>
-  <name>javax.jdo.option.ConnectionPassword</name>
-  <value>123</value>
-</property>
- 
-<property>
-  <name>datanucleus.autoCreateSchema</name>
-  <value>false</value>
-</property>
+    <property>
+        <name>javax.jdo.option.ConnectionURL</name>
+        <value>jdbc:postgresql://localhost/db_metastore</value>
+    </property>
 
-<property>
-  <name>hive.metastore.uris</name>
-  <value>thrift://${SRV_1}:9083</value>
+    <property>
+        <name>hive.aux.jars.path</name>
+        <value>file://${HIVE_HOME}/lib</value>
+    </property>
+ 
+    <property>
+        <name>javax.jdo.option.ConnectionDriverName</name>
+        <value>org.postgresql.Driver</value>
+    </property>
+ 
+    <property>
+        <name>javax.jdo.option.ConnectionUserName</name>
+        <value>user_hive</value>
+    </property>
+ 
+    <property>
+        <name>javax.jdo.option.ConnectionPassword</name>
+        <value>123</value>
+    </property>
+ 
+    <property>
+        <name>datanucleus.autoCreateSchema</name>
+        <value>false</value>
+    </property>
+
+    <property>
+        <name>hive.metastore.uris</name>
+        <value>thrift://${SRV_1}:9083</value>
   <description>IP address (or fully-qualified domain name) and port of the metastore host</description>
-</property>
+    </property>
 
-<property>
-<name>hive.metastore.schema.verification</name>
-<value>true</value>
-</property>
+    <property>
+        <name>hive.metastore.schema.verification</name>
+        <value>true</value>
+    </property>
 
-<property>
-<name>hive.execution.engine</name>
-<value>spark</value>
-<description>
-Chooses execution engine.
-</description>
-</property>
+    <property>
+        <name>hive.execution.engine</name>
+        <value>spark</value>
+        <description>Chooses execution engine.</description>
+    </property>
 
 </configuration>
 EOF
@@ -125,7 +131,7 @@ CREATE EXTERNAL TABLE tb_carro (
 
 
 CREATE EXTERNAL TABLE IF NOT EXISTS tb_carro(
-id int,
+    id int,
     marca string,
     modelo string,
     ano int)

@@ -1,9 +1,3 @@
-# 52.15.45.98  ${SRV_1}
-# 18.218.252.98  ${SRV_2}
-# 18.218.143.108  ${SRV_3}
-
-
-
 # JAVA =======================================================================
 
 # Baixe o "Java SE Development Kit" em formato .tar.gz.
@@ -29,7 +23,7 @@ mv /usr/local/jdk-9.0.4 /usr/local/jdk
 
 # Crie o arquivo e variáveis de ambiente Java
 
-cat << EOF > /etc/profile.d/java.sh
+cat << EOF > /etc/profile.d/jdk.sh
 #!/bin/bash
 export JAVA_HOME='/usr/local/jdk'
 export JRE_HOME="\${JAVA_HOME}"

@@ -71,7 +71,6 @@ mv hadoop-${HADOOP_VERSION} hadoop
 
 rm -f hadoop-${HADOOP_VERSION}.tar.gz
 
-
 find hadoop/ -name *.cmd -delete
 
 mv hadoop/etc/hadoop /etc/
@@ -130,53 +129,67 @@ EOF
 
 cat << EOF > ${HADOOP_CONF_DIR}/mapred-site.xml
 <configuration>
+
 <property>
-        <name>mapreduce.framework.name</name>
-        <value>yarn</value>
+    <name>mapreduce.framework.name</name>
+    <value>yarn</value>
 </property>
+
+<property>
+    <name>mapreduce.map.memory.mb</name>
+    <value>2048</value>
+</property>
+
+<property>
+    <name>mapreduce.reduce.memory.mb</name>
+    <value>4096</value>
+</property>
+
 </configuration>
 EOF
 
 cat << EOF > ${HADOOP_CONF_DIR}/yarn-site.xml
 <configuration>
-<!-- Site specific YARN configuration properties -->
-<property>
-        <name>yarn.nodemanager.aux-services</name>
-        <value>mapreduce_shuffle</value>
-</property>
-<property>
-        <name>yarn.nodemanager.aux-services.mapreduce.shuffle.class</name>
-        <value>org.apache.hadoop.mapred.ShuffleHandler</value>
-</property>
-<property>
-        <name>yarn.scheduler.minimum-allocation-mb</name>
-        <value>256</value>
-</property>
-<property>
-        <name>yarn.scheduler.maximum-allocation-mb</name>
-        <value>2048</value>
-</property>
-<property>
-        <name>yarn.scheduler.maximum-allocation-vcores</name>
-        <value>1</value>
-</property>
-<property>
-        <name>yarn.resourcemanager.resource-tracker.address</name>
-        <value>${SRV_1}:8025</value>
-</property>
-<property>
-        <name>yarn.resourcemanager.scheduler.address</name>
-        <value>${SRV_1}:8030</value>
-</property>
-<property>
-        <name>yarn.resourcemanager.address</name>
-        <value>${SRV_1}:8040</value>
-</property>
+    <property>
+        <name>yarn.nodemanager.aux-services</name>
+        <value>mapreduce_shuffle</value>
+    </property>
+
+    <property>
+        <name>yarn.nodemanager.aux-services.mapreduce.shuffle.class</name>
+        <value>org.apache.hadoop.mapred.ShuffleHandler</value>
+    </property>
+
+    <property>
+        <name>yarn.app.mapreduce.am.env</name>
+        <value>HADOOP_MAPRED_HOME=${HADOOP_MAPRED_HOME}</value>
+    </property>
+
+    <property>
+        <name>mapreduce.map.env</name>
+        <value>HADOOP_MAPRED_HOME=${HADOOP_MAPRED_HOME}</value>
+    </property>
+
+    <property>
+        <name>mapreduce.reduce.env</name>
+        <value>HADOOP_MAPRED_HOME=${HADOOP_MAPRED_HOME}</value>
+    </property>
+
+    <property>
+        <name>yarn.scheduler.maximum-allocation-vcores</name>
+        <value>1</value>
+    </property>
+
+    <property>
+        <name>yarn.scheduler.minimum-allocation-mb</name>
+        <value>1024</value>
+    </property>
+
 </configuration>
 EOF
 
 cat << EOF > ${HADOOP_CONF_DIR}/hadoop-env.sh
-source /etc/profile.d/java.sh
+source /etc/profile.d/jdk.sh
 source /etc/profile.d/hadoop.sh
 EOF
 
@@ -218,4 +231,13 @@ hdfs dfs -get /teste/linux-4.15.3.tar.xz /tmp/
 
 ls -lh /tmp/linux-4.15.3.tar.xz 
 -rw-r--r-- 1 hadoop hadoop 98M Feb 14 09:46 /tmp/linux-4.15.3.tar.xz
+
+# Sair do modo de segurança:
+
+hdfs dfsadmin -safemode leave
+
+# check status of safemode
+
+hdfs dfsadmin -safemode get
+
 

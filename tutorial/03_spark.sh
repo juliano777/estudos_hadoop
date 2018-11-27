@@ -3,17 +3,19 @@
 
 # https://www.tutorialspoint.com/spark_sql/spark_sql_quick_guide.htm
 
+read -p 'Spark: Digite a versão a ser baixada: ' SPARK_VERSION
+
 
 cd /usr/local/
 
-wget -c http://mirror.nbtelecom.com.br/apache/spark/spark-2.3.0/spark-2.3.0-bin-hadoop2.7.tgz
+wget -c http://mirror.nbtelecom.com.br/apache/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop2.7.tgz
 
 
-tar xf spark-2.3.0-bin-hadoop2.7.tgz
+tar xf spark-${SPARK_VERSION}-bin-hadoop2.7.tgz
 
-rm -f spark-2.3.0-bin-hadoop2.7.tgz
+rm -f spark-${SPARK_VERSION}-bin-hadoop2.7.tgz
 
-mv spark-2.3.0-bin-hadoop2.7/ spark
+mv spark-${SPARK_VERSION}-bin-hadoop2.7/ spark
 
 find spark/ -name *.cmd -delete
 
@@ -21,10 +23,9 @@ cat << EOF > /etc/profile.d/spark.sh
 export SPARK_HOME='/usr/local/spark'
 export SPARK_CONF_DIR="\${SPARK_HOME}/conf"
 export PATH="\${PATH}:\${SPARK_HOME}/bin"
-export IPYTHON='1'
 export PYSPARK_PYTHON='/bin/python3.6'
 export PYSPARK_DRIVER_PYTHON='ipython3'
-export PYSPARK_DRIVER_PYTHON_OPTS='notebook'
+
 if [ -z \${CLASSPATH} ]; then
     export CLASSPATH="\${SPARK_HOME}/jars"
 else
@@ -40,8 +41,6 @@ source /etc/profile.d/spark.sh
 cp spark/conf/spark-defaults.conf.template spark/conf/spark-defaults.conf
 
 
-
-
 cat << EOF > /tmp/emp.json
 {"id" : 1201, "name" : "satish", "age" : 25},
 {"id" : 1202, "name" : "krishna", "age" : 28},
@@ -49,6 +48,8 @@ cat << EOF > /tmp/emp.json
 {"id" : 1204, "name" : "javed", "age" : 23},
 {"id" : 1205, "name" : "prudvi", "age" : 23}
 EOF
+
+hdfs dfs -mkdir /tmp
 
 hdfs dfs -put /tmp/emp.json /tmp/
 
@@ -143,12 +144,5 @@ https://www.cloudera.com/documentation/enterprise/5-6-x/topics/cdh_ig_hive_metas
 FAILED SemanticException org.apache.hadoop.hive.ql.metadata.HiveException java.lang.RuntimeException: Unable to instantiate org.apache.hadoop.hive.ql.metadata.SessionHiveMetaStoreClient
 
 https://cwiki.apache.org/confluence/display/Hive/Hive+on+Spark%3A+Getting+Started
-
-
-
-
-
-
-
 
 

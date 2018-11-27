@@ -1,15 +1,19 @@
 # Sqoop =======================================================================
 
+# Precisa de JDK
+
+read -p 'Sqoop -> Digite a versão a ser baixada: ' SQOOP_VERSION
+
 cd /usr/local
 
 
-wget -c http://ftp.unicamp.br/pub/apache/sqoop/1.4.7/sqoop-1.4.7.bin__hadoop-2.6.0.tar.gz
+wget -c http://ftp.unicamp.br/pub/apache/sqoop/${SQOOP_VERSION}/sqoop-${SQOOP_VERSION}.bin__hadoop-2.6.0.tar.gz
 
-tar xf sqoop-1.4.7.bin__hadoop-2.6.0.tar.gz
+tar xf sqoop-${SQOOP_VERSION}.bin__hadoop-2.6.0.tar.gz
 
-mv sqoop-1.4.7.bin__hadoop-2.6.0 sqoop
+mv sqoop-${SQOOP_VERSION}.bin__hadoop-2.6.0 sqoop
 
-rm -f sqoop-1.4.7.bin__hadoop-2.6.0.tar.gz
+rm -f sqoop-${SQOOP_VERSION}.bin__hadoop-2.6.0.tar.gz
 
 find sqoop/ -name *.cmd -delete
 
@@ -28,17 +32,75 @@ export PATH="\${PATH}:\${SQOOP_HOME}/bin"
 EOF
 
 
+source /etc/profile.d/sqoop.sh
+
+# cat ${SQOOP_HOME}/conf/sqoop-env-template.sh > ${SQOOP_HOME}/conf/sqoop-env.sh
+
+
 # Filme Transcendence
 
-ln -s /usr/local/jdk/lib/postgresql-42.2.2.jar /usr/local/sqoop/lib/
+ln -s /usr/local/jdk/lib/postgresql-42.2.2.jar ${SQOOP_HOME}/lib/
 
-sqoop list-tables --connect jdbc:postgresql://127.0.0.1/db_metastore --username user_hive
+ln -sf ${HIVE_HOME}/lib/hive-exec-3.0.0.jar ${SQOOP_HOME}/lib/
 
-sqoop list-tables --connect jdbc:postgresql://127.0.0.1/db_empresa --username postgres
+hdfs dfs -mkdir -p /db/pgsql/db_metastore
 
-sqoop import --connect jdbc:postgresql://127.0.0.1/db_empresa --username postgres --table tb_pf --target-dir /db/pgsql/db_empresa/tb_pf --null-non-string '\\N'
+hdfs dfs -mkdir -p /db/pgsql/db_empresa
+
+sqoop list-tables \
+--connect jdbc:postgresql://127.0.0.1/db_metastore \
+--username user_hive \
+--password 123
+
+sqoop list-tables \
+--connect jdbc:postgresql://127.0.0.1/db_empresa \
+--username postgres \
+--password 123
+
+sqoop import \
+--connect jdbc:postgresql://127.0.0.1/db_empresa \
+--username postgres --table tb_pf \
+--password 123 \
+--target-dir /db/pgsql/db_empresa/tb_pf \
+--null-non-string '\\N'
+
+# ===============================================================
+export CONDITIONS='TRUE'
+
+export COLUMNS='cpf, rg, nome, sobrenome, genero::text, dt_nascto, obs'
+
+export SQL="SELECT ${COLUMNS} FROM tb_pf WHERE \$CONDITIONS;"
 
 
+sqoop import \
+--connect jdbc:postgresql://192.168.56.1:5432/db_empresa \
+--username user_sqoop \
+-P \
+--target-dir /db/pgsql/db_empresa/table/pf \
+--query "${SQL}" \
+--input-fields-terminated-by ';' \
+-m 1
+
+
+
+sqoop export \
+--connect jdbc:postgresql://192.168.56.1:5432/db_sqoop \
+--username user_sqoop \
+-P \
+--export-dir /db/pgsql/db_empresa/table/pf \
+--table tb_pf \
+-- --schema public \
+--input-fields-terminated-by ';' \
+-m 1
+
+# ===============================================================
+
+
+sqoop eval \
+--connect jdbc:postgresql://127.0.0.1:5432/db_metastore \
+--username user_hive \
+--password 123 \
+--query 'SELECT * FROM "DBS"'
 
 
 
