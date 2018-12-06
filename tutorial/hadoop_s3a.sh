@@ -1,11 +1,11 @@
 #!/bin/bash
 
 "
-
-    aws-java-sdk-1.11.43.jar
+aws-java-sdk-1.11.43.jar
     aws-java-sdk-core-1.11.43.jar
     aws-java-sdk-kms-1.11.43.jar
     aws-java-sdk-s3-1.11.43.jar
+    aws-java-sdk-dynamodb
     hadoop-aws-2.7.1.jar
     hadoop-aws-3.0.0-alpha1.jar
     httpclient-4.5.2.jar
