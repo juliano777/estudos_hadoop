@@ -39,7 +39,7 @@ source /etc/profile.d/sqoop.sh
 
 # Filme Transcendence
 
-ln -s /usr/local/jdk/lib/postgresql-42.2.2.jar ${SQOOP_HOME}/lib/
+ln -s /usr/local/jdk/lib/postgresql-42.2.5.jar ${SQOOP_HOME}/lib/
 
 ln -sf ${HIVE_HOME}/lib/hive-exec-3.0.0.jar ${SQOOP_HOME}/lib/
 

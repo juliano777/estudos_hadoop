@@ -30,5 +30,4 @@ if [ -z \${CLASSPATH} ]; then
 else
     export CLASSPATH=".:\${JAVA_HOME}/lib:\${CLASSPATH}"
 fi
-
 EOF

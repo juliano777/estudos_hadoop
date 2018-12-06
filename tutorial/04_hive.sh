@@ -34,9 +34,9 @@ source /etc/profile.d/hive.sh
 
 cp ${HIVE_HOME}/conf/hive-env.sh.template ${HIVE_HOME}/conf/hive-env.sh
 
-rpm -Uvh https://download.postgresql.org/pub/repos/yum/10/redhat/rhel-7-x86_64/pgdg-centos10-10-2.noarch.rpm
+rpm -Uvh https://download.postgresql.org/pub/repos/yum/11/redhat/rhel-7-x86_64/pgdg-centos10-10-2.noarch.rpm
 
-wget -c https://jdbc.postgresql.org/download/postgresql-42.2.2.jar -P /usr/local/jdk/lib/
+wget -c https://jdbc.postgresql.org/download/postgresql-42.2.5.jar -P /usr/local/jdk/lib/
 
 
 cat << EOF > ${HIVE_HOME}/conf/hive-site.xml
@@ -93,6 +93,9 @@ EOF
 
 
 schematool -initSchema -dbType postgres
+
+hiveserver2 start
+hiveserver2 --service metastore
 
 
 hive --service metastore &
