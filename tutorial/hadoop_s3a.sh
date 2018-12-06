@@ -19,7 +19,7 @@ aws-java-sdk-1.11.43.jar
 export HADOOP_VERSION='3.1.1'
 
 
-export AWS_SDK_VERSION='1.11.463'
+export AWS_SDK_VERSION='1.11.464'
 export JODA_TIME_VERSION='2.10.1'
 export HADOOP_AWS_VERSION='3.1.1'
 
