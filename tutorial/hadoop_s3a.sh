@@ -16,7 +16,7 @@
 "
 
 
-export HADOOP_VERSION='3.0.3'
+export HADOOP_VERSION='3.1.1'
 
 
 export AWS_SDK_VERSION='1.11.463'
@@ -59,18 +59,8 @@ ${JODA_TIME_VERSION}/joda-time-${JODA_TIME_VERSION}.jar \
 -P ${HADOOP_HOME}/share/hadoop/common/lib/
 
 
-# Verifique no site a versão do Hadoop AWS
-# https://mvnrepository.com/artifact/org.apache.hadoop/hadoop-aws
-
-read -p 'Versão AWS SDK For Hadoop AWS: ' HADOOP_AWS_VERSION
-
-wget -c http://central.maven.org/maven2/org/apache/hadoop/hadoop-aws/\
-${HADOOP_AWS_VERSION}/hadoop-aws-${HADOOP_AWS_VERSION}.jar \
--P ${HADOOP_HOME}/share/hadoop/common/lib/
-
-
-
-
+ln -s ${HADOOP_HOME}/share/hadoop/tools/lib/hadoop-aws-${HADOOP_VERSION}.jar \
+${HADOOP_HOME}/share/hadoop/common/lib/
 
 
 
