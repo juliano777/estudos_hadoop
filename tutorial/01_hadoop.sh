@@ -31,10 +31,12 @@ groupadd -r hadoop
 
 useradd -rm -c 'Hadoop User' -s /bin/bash -d /var/lib/hadoop -k /etc/skel -g hadoop hadoop
 
+read -p 'Digite a versão (X.Y.Z) do Hadoop a ser baixada: ' HADOOP_VERSION
 
 cat << EOF > /etc/profile.d/hadoop.sh
 #!/bin/bash
 
+export HADOOP_VERSION='${HADOOP_VERSION}'
 export HADOOP_HOME='/usr/local/hadoop'
 export HADOOP_INSTALL="\${HADOOP_HOME}"
 export PATH="\${PATH}:\${HADOOP_HOME}/bin:\${HADOOP_HOME}/sbin"
@@ -60,8 +62,6 @@ EOF
 source /etc/profile.d/hadoop.sh
 
 cd /usr/local
-
-read -p 'Digite a versão (X.Y.Z) do Hadoop a ser baixada: ' HADOOP_VERSION
 
 wget -c http://ftp.unicamp.br/pub/apache/hadoop/common/hadoop-${HADOOP_VERSION}/hadoop-${HADOOP_VERSION}.tar.gz
 
