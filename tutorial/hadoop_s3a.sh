@@ -46,6 +46,10 @@ wget -c http://central.maven.org/maven2/com/amazonaws/aws-java-sdk-s3/\
 ${AWS_SDK_VERSION}/aws-java-sdk-s3-${AWS_SDK_VERSION}.jar \
 -P ${HADOOP_HOME}/share/hadoop/common/lib/
 
+wget -c http://central.maven.org/maven2/com/amazonaws/aws-java-sdk-dynamodb/\
+${AWS_SDK_VERSION}/aws-java-sdk-dynamodb-${AWS_SDK_VERSION}.jar \
+-P ${HADOOP_HOME}/share/hadoop/common/lib/
+
 
 
 
