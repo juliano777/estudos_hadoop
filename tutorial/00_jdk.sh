@@ -9,17 +9,13 @@
 
 # http://www.oracle.com/technetwork/java/javase/downloads/index.html
 
-# Supondo que o nome do arquivo seja jdk-9.0.4_linux-x64_bin.tar.gz:
+# Supondo que o nome do arquivo seja jdk-${JDK_VERSION}_linux-x64_bin.tar.gz:
 
-tar xvf /tmp/jdk-9.0.4_linux-x64_bin.tar.gz -C /usr/local/
-
-
+tar xvf /tmp/jdk-${JDK_VERSION}_linux-x64_bin.tar.gz -C /usr/local/
 
 # Mude o nome do diretório tirando a versão:
 
-mv /usr/local/jdk-9.0.4 /usr/local/jdk
-
-
+mv /usr/local/jdk-${JDK_VERSION} /usr/local/jdk
 
 # Crie o arquivo e variáveis de ambiente Java
 
@@ -36,6 +32,3 @@ else
 fi
 
 EOF
-
-
-rm -fr ${JAVA_HOME}/lib/i386
