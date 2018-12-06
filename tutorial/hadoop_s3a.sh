@@ -116,6 +116,94 @@ EOF
 
 
 
+cat << EOF > ${HIVE_HOME}/conf/hive-site.xml
+<configuration>
+    <property>
+        <name>javax.jdo.option.ConnectionURL</name>
+        <value>jdbc:postgresql://localhost/db_metastore</value>
+    </property>
+
+    <property>
+        <name>hive.aux.jars.path</name>
+        <value>file://${HIVE_HOME}/lib</value>
+    </property>
+ 
+    <property>
+        <name>javax.jdo.option.ConnectionDriverName</name>
+        <value>org.postgresql.Driver</value>
+    </property>
+ 
+    <property>
+        <name>javax.jdo.option.ConnectionUserName</name>
+        <value>user_hive</value>
+    </property>
+ 
+    <property>
+        <name>javax.jdo.option.ConnectionPassword</name>
+        <value>123</value>
+    </property>
+ 
+    <property>
+        <name>datanucleus.autoCreateSchema</name>
+        <value>false</value>
+    </property>
+
+
+    <property>
+        <name>hive.metastore.uris</name>
+        <value>thrift://${SRV_1}:9083</value>
+        <description>IP address (or fully-qualified domain name) and port of the metastore host</description>
+    </property>
+
+
+    <property>
+        <name>fs.s3a.endpoint</name>
+        <description>AWS S3 endpoint to connect to.</description>
+        <value>http://192.168.56.4:9000</value>
+        <!-- NOTE: Above value is obtained from the minio start window -->
+    </property>
+
+    <property>
+        <name>fs.s3a.access.key</name>
+        <description>AWS access key ID.</description>
+        <value>5D0EN4B8SF7EYUJH1V8I</value>
+        <!-- NOTE: Above value is obtained from the minio start window -->
+    </property>
+
+    <property>
+        <name>fs.s3a.secret.key</name>
+        <description>AWS secret key.</description>
+        <value>BjtgRNuLHBSEUU4e2Yzz/lBVjoFVnIvCr6rGFRXo</value>
+        <!-- NOTE: Above value is obtained from the minio start window -->
+    </property>
+
+    <property>
+        <name>fs.s3a.path.style.access</name>
+        <value>true</value>
+        <description>Enable S3 path style access.</description>
+    </property>
+
+    <property>
+        <name>hive.metastore.warehouse.dir</name>
+        <value>s3a://hive/warehouse</value>
+    </property>
+
+    <property>
+        <name>hive.metastore.schema.verification</name>
+        <value>true</value>
+    </property>
+
+    <property>
+        <name>hive.execution.engine</name>
+        <value>spark</value>
+        <description>Chooses execution engine.</description>
+    </property>
+
+</configuration>
+EOF
+
+
+
 hadoop fs -put /boot/vmlinuz-4.17.3-jx s3a://foo/
 
 hadoop fs -ls s3a://foo/*
