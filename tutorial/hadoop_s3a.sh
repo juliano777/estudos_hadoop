@@ -120,7 +120,6 @@ hadoop fs -put /boot/vmlinuz-4.17.3-jx s3a://foo/
 hadoop fs -ls s3a://foo/*
 
 
-
 cat << EOF > ${HIVE_HOME}/conf/hive-site.xml
 <configuration>
     <property>
