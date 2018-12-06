@@ -207,6 +207,10 @@ cat << EOF > ${HIVE_HOME}/conf/hive-site.xml
 </configuration>
 EOF
 
+CREATE ROLE user_hive LOGIN ENCRYPTED PASSWORD '123';
+
+CREATE DATABASE db_metastore OWNER user_hive;
+
 schematool -initSchema -dbType postgres
 
 hiveserver2 start &
