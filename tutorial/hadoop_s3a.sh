@@ -115,6 +115,11 @@ cat << EOF > /etc/hadoop/core-site.xml
 EOF
 
 
+hadoop fs -put /boot/vmlinuz-4.17.3-jx s3a://foo/
+
+hadoop fs -ls s3a://foo/*
+
+
 
 cat << EOF > ${HIVE_HOME}/conf/hive-site.xml
 <configuration>
@@ -202,9 +207,12 @@ cat << EOF > ${HIVE_HOME}/conf/hive-site.xml
 </configuration>
 EOF
 
+schematool -initSchema -dbType postgres
+
+hiveserver2 start &
+hiveserver2 --service metastore &
 
 
-hadoop fs -put /boot/vmlinuz-4.17.3-jx s3a://foo/
 
-hadoop fs -ls s3a://foo/*
+
 
