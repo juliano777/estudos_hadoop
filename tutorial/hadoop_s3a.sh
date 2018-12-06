@@ -71,20 +71,6 @@ ${HADOOP_HOME}/share/hadoop/common/lib/
 cat << EOF > /etc/hadoop/core-site.xml
 <!-- core-site.xml -->
 <configuration>
-<!--
-    <property>
-            <name>fs.defaultFS</name>
-            <value>hdfs://hadoop-alpha:9000/</value>
-    </property>
-    <property>
-        <name>dfs.permissions</name>
-        <value>false</value>
-    </property>
-    <property>
-        <name>hadoop.tmp.dir</name>
-        <value>/var/lib/hadoop/tmp</value>
-    </property>
--->
     <property>
         <name>fs.s3a.endpoint</name>
         <description>AWS S3 endpoint to connect to.</description>
