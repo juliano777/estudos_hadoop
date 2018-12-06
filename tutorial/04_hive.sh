@@ -38,7 +38,6 @@ rpm -Uvh https://download.postgresql.org/pub/repos/yum/11/redhat/rhel-7-x86_64/p
 
 wget -c https://jdbc.postgresql.org/download/postgresql-42.2.5.jar -P /usr/local/jdk/lib/
 
-
 cat << EOF > ${HIVE_HOME}/conf/hive-site.xml
 <configuration>
     <property>
@@ -94,12 +93,11 @@ EOF
 
 schematool -initSchema -dbType postgres
 
-hiveserver2 start
-hiveserver2 --service metastore
+hiveserver2 start &
+hiveserver2 --service metastore &
 
 
 hive --service metastore &
-
 
 
 CREATE ROLE user_hive LOGIN ENCRYPTED PASSWORD '123';
@@ -107,8 +105,6 @@ CREATE ROLE user_hive LOGIN ENCRYPTED PASSWORD '123';
 CREATE DATABASE db_metastore OWNER user_hive;
 
 #psql -f ${HIVE_HOME}/scripts/metastore/upgrade/postgres/hive-schema-2.3.0.postgres.sql -U user_hive db_metastore
-
-
 
 cat << EOF > /tmp/carros.csv
 1;Ford;Corcel;1987
