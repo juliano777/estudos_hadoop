@@ -1,18 +1,18 @@
 #!/bin/bash
 
 "
-aws-java-sdk-1.11.43.jar
-aws-java-sdk-core-1.11.43.jar
-aws-java-sdk-kms-1.11.43.jar
-aws-java-sdk-s3-1.11.43.jar
+aws-java-sdk
+aws-java-sdk-core
+aws-java-sdk-kms
+aws-java-sdk-s3
 aws-java-sdk-dynamodb
-hadoop-aws-2.7.1.jar
-hadoop-aws-3.0.0-alpha1.jar
-httpclient-4.5.2.jar
-jackson-annotations-2.8.4.jar
-jackson-core-2.8.4.jar
-jackson-databind-2.8.4.jar
-joda-time-2.9.4.jar
+hadoop-aws
+hadoop-aws
+httpclient
+jackson-annotations
+jackson-core
+jackson-databind
+joda-time
 "
 
 
@@ -115,7 +115,7 @@ cat << EOF > ${HIVE_HOME}/conf/hive-site.xml
 
     <property>
         <name>hive.aux.jars.path</name>
-        <value>file://${HIVE_HOME}/lib</value>
+        <value>file:///usr/local/hive/lib</value>
     </property>
  
     <property>
@@ -132,18 +132,19 @@ cat << EOF > ${HIVE_HOME}/conf/hive-site.xml
         <name>javax.jdo.option.ConnectionPassword</name>
         <value>123</value>
     </property>
- 
+
+    <!-- 
     <property>
         <name>datanucleus.autoCreateSchema</name>
         <value>false</value>
     </property>
-
-
+        
     <property>
         <name>hive.metastore.uris</name>
-        <value>thrift://${SRV_1}:9083</value>
+        <value>thrift://hadoop-alpha:9083</value>
         <description>IP address (or fully-qualified domain name) and port of the metastore host</description>
     </property>
+    -->
 
 
     <property>
@@ -174,14 +175,21 @@ cat << EOF > ${HIVE_HOME}/conf/hive-site.xml
     </property>
 
     <property>
+        <name>datanucleus.autoCreateSchema</name>
+        <value>true</value>
+    </property>
+
+    <property>
         <name>hive.metastore.warehouse.dir</name>
         <value>s3a://hive/warehouse</value>
     </property>
 
+    <!--
     <property>
         <name>hive.metastore.schema.verification</name>
         <value>true</value>
     </property>
+    -->
 
     <property>
         <name>hive.execution.engine</name>
