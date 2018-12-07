@@ -1,6 +1,8 @@
 #!/bin/bash
 
 "
+Dependências
+
 aws-java-sdk
 aws-java-sdk-core
 aws-java-sdk-kms
