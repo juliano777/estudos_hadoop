@@ -24,7 +24,6 @@ cat << EOF > /etc/profile.d/jdk.sh
 export JAVA_HOME='/usr/local/jdk'
 export JRE_HOME="\${JAVA_HOME}"
 export PATH="\${PATH}:\${JAVA_HOME}/bin"
-
 if [ -z \${CLASSPATH} ]; then
     export CLASSPATH=".:\${JAVA_HOME}/lib"
 else
