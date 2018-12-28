@@ -117,8 +117,9 @@ EOF
 
 schematool -initSchema -dbType postgres
 
-hiveserver2 start &
 hiveserver2 --service metastore &
+
+hiveserver2 start &
 
 
 hive --service metastore &
