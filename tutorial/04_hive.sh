@@ -73,12 +73,36 @@ cat << EOF > ${HIVE_HOME}/conf/hive-site.xml
     <property>
         <name>hive.metastore.uris</name>
         <value>thrift://${SRV_1}:9083</value>
-  <description>IP address (or fully-qualified domain name) and port of the metastore host</description>
+        <description>IP address (or fully-qualified domain name) and port of the metastore host</description>
     </property>
 
     <property>
         <name>hive.metastore.schema.verification</name>
         <value>true</value>
+    </property>
+
+    <property>
+        <name>hive.server2.thrift.bind.host</name>
+        <value>${SRV_1}</value>
+    </property>
+
+    <property>
+        <name>hive.server2.thrift.port</name>
+        <value>10000</value>
+    </property>
+
+    <property>
+        <name>hive.server2.authentication</name>
+        <value>NOSASL</value>
+    </property>
+
+    <property>
+        <name>hive.server2.enable.doAs</name>
+        <value>false</value>
+        <description>
+        Setting this property to true will have HiveServer2 execute
+        Hive operations as the user making the calls to it.
+        </description>
     </property>
 
     <property>
