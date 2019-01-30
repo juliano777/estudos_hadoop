@@ -121,10 +121,6 @@ hiveserver2 --service metastore &
 
 hiveserver2 start &
 
-
-hive --service metastore &
-
-
 CREATE ROLE user_hive LOGIN ENCRYPTED PASSWORD '123';
 
 CREATE DATABASE db_metastore OWNER user_hive;
