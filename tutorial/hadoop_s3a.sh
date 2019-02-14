@@ -208,10 +208,6 @@ CREATE DATABASE db_metastore OWNER user_hive;
 
 schematool -initSchema -dbType postgres
 
-hiveserver2 start &
 hiveserver2 --service metastore &
 
-
-
-
-
+hiveserver2 start &
