@@ -18,12 +18,12 @@ joda-time
 "
 
 
-export HADOOP_VERSION='3.1.1'
+export HADOOP_VERSION='3.1.2'
 
 
-export AWS_SDK_VERSION='1.11.464'
+export AWS_SDK_VERSION='1.11.517'
 export JODA_TIME_VERSION='2.10.1'
-export HADOOP_AWS_VERSION='3.1.1'
+export HADOOP_AWS_VERSION='3.1.2'
 
 
 
@@ -77,21 +77,18 @@ cat << EOF > /etc/hadoop/core-site.xml
         <name>fs.s3a.endpoint</name>
         <description>AWS S3 endpoint to connect to.</description>
         <value>http://192.168.56.4:9000</value>
-        <!-- NOTE: Above value is obtained from the minio start window -->
     </property>
 
     <property>
         <name>fs.s3a.access.key</name>
         <description>AWS access key ID.</description>
         <value>5D0EN4B8SF7EYUJH1V8I</value>
-        <!-- NOTE: Above value is obtained from the minio start window -->
     </property>
 
     <property>
         <name>fs.s3a.secret.key</name>
         <description>AWS secret key.</description>
         <value>BjtgRNuLHBSEUU4e2Yzz/lBVjoFVnIvCr6rGFRXo</value>
-        <!-- NOTE: Above value is obtained from the minio start window -->
     </property>
 
     <property>
@@ -99,6 +96,18 @@ cat << EOF > /etc/hadoop/core-site.xml
         <value>true</value>
         <description>Enable S3 path style access.</description>
     </property>
+
+    <property>
+        <name>fs.s3a.connection.timeout</name>
+        <value>10</value>
+    </property>
+
+    <property>
+        <name>fs.s3a.attempts.maximum</name>
+        <value>1</value>
+        <description>How many times we should retry commands on transient errors.</description>
+    </property>
+
 </configuration>
 EOF
 
