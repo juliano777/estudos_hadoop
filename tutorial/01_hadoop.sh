@@ -217,25 +217,25 @@ hadoop fs -mkdir /teste
 
 wget -c https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-4.15.3.tar.xz -P /tmp
 
-hdfs dfs -put /tmp/linux-4.15.3.tar.xz /teste/
+hadoop fs -put /tmp/linux-4.15.3.tar.xz /teste/
 
-hdfs dfs -ls /teste
+hadoop fs -ls /teste
 Found 1 items
 -rw-r--r--   1 hadoop supergroup  102188708 2018-02-13 17:02 /teste/linux-4.15.3.tar.xz
 
-hdfs dfs -ls -h /teste
+hadoop fs -ls -h /teste
 Found 1 items
 -rw-r--r--   1 hadoop supergroup     97.5 M 2018-02-13 17:02 /teste/linux-4.15.3.tar.xz
 
-hdfs dfs -get /teste/linux-4.15.3.tar.xz /tmp/
+hadoop fs -get /teste/linux-4.15.3.tar.xz /tmp/
 
 ls -lh /tmp/linux-4.15.3.tar.xz 
 -rw-r--r-- 1 hadoop hadoop 98M Feb 14 09:46 /tmp/linux-4.15.3.tar.xz
 
 # Sair do modo de segurança:
 
-hdfs dfsadmin -safemode leave
+hadoop fsadmin -safemode leave
 
 # check status of safemode
 
-hdfs dfsadmin -safemode get
+hadoop fsadmin -safemode get
