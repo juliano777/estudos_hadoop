@@ -21,52 +21,9 @@ joda-time
 export HADOOP_VERSION='3.1.2'
 
 
-export AWS_SDK_VERSION='1.11.517'
-export JODA_TIME_VERSION='2.10.1'
-export HADOOP_AWS_VERSION='3.1.2'
+ls ${HADOOP_HOME}/share/hadoop/tools/lib/*aws-*.jar | \
+    xargs -i ln -sf {} ${HADOOP_HOME}/share/hadoop/common/lib/
 
-
-
-# Verifique no site a versão do AWS SDK For Java
-# https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk
-
-read -p 'Versão AWS SDK For Java: ' AWS_SDK_VERSION
-
-wget -c http://central.maven.org/maven2/com/amazonaws/aws-java-sdk/\
-${AWS_SDK_VERSION}/aws-java-sdk-${AWS_SDK_VERSION}.jar \
--P ${HADOOP_HOME}/share/hadoop/common/lib/
-
-wget -c http://central.maven.org/maven2/com/amazonaws/aws-java-sdk-core/\
-${AWS_SDK_VERSION}/aws-java-sdk-core-${AWS_SDK_VERSION}.jar \
--P ${HADOOP_HOME}/share/hadoop/common/lib/
-
-wget -c http://central.maven.org/maven2/com/amazonaws/aws-java-sdk-kms/\
-${AWS_SDK_VERSION}/aws-java-sdk-kms-${AWS_SDK_VERSION}.jar \
--P ${HADOOP_HOME}/share/hadoop/common/lib/
-
-wget -c http://central.maven.org/maven2/com/amazonaws/aws-java-sdk-s3/\
-${AWS_SDK_VERSION}/aws-java-sdk-s3-${AWS_SDK_VERSION}.jar \
--P ${HADOOP_HOME}/share/hadoop/common/lib/
-
-wget -c http://central.maven.org/maven2/com/amazonaws/aws-java-sdk-dynamodb/\
-${AWS_SDK_VERSION}/aws-java-sdk-dynamodb-${AWS_SDK_VERSION}.jar \
--P ${HADOOP_HOME}/share/hadoop/common/lib/
-
-
-
-
-# Verifique no site a versão do Joda Time
-# https://mvnrepository.com/artifact/joda-time/joda-time
-
-read -p 'Versão AWS SDK For Joda Time: ' JODA_TIME_VERSION
-
-wget -c http://central.maven.org/maven2/joda-time/joda-time/\
-${JODA_TIME_VERSION}/joda-time-${JODA_TIME_VERSION}.jar \
--P ${HADOOP_HOME}/share/hadoop/common/lib/
-
-
-ln -s ${HADOOP_HOME}/share/hadoop/tools/lib/hadoop-aws-${HADOOP_VERSION}.jar \
-${HADOOP_HOME}/share/hadoop/common/lib/
 
 
 
