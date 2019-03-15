@@ -18,8 +18,9 @@ joda-time
 "
 
 
-export HADOOP_VERSION='3.1.2'
 
+# Criar links simbólicos no diretório de bibliotecas para os arquivos .jar
+# da AWS:
 
 ls ${HADOOP_HOME}/share/hadoop/tools/lib/*aws-*.jar | \
     xargs -i ln -sf {} ${HADOOP_HOME}/share/hadoop/common/lib/
