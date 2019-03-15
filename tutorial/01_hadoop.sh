@@ -45,7 +45,7 @@ export HADOOP_COMMON_HOME="\${HADOOP_HOME}"
 export HADOOP_HDFS_HOME="\${HADOOP_HOME}"
 export YARN_HOME="\${HADOOP_HOME}"
 export HADOOP_COMMON_LIB_NATIVE_DIR="\${HADOOP_HOME}/lib/native"
-export LD_LIBRARY_PATH="\${LD_LIBRARY_PATH}:${HADOOP_COMMON_LIB_NATIVE_DIR}"
+export LD_LIBRARY_PATH="\${LD_LIBRARY_PATH}:\${HADOOP_COMMON_LIB_NATIVE_DIR}"
 export HADOOP_OPTS="-Djava.library.path=\${HADOOP_COMMON_LIB_NATIVE_DIR} -XX:-PrintWarnings -Djava.net.preferIPv4Stack=true"
 export HADOOP_CONF_DIR="/etc/hadoop"                                   
 export HADOOP_LOG_DIR='/var/log/hadoop'
