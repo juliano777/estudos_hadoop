@@ -36,7 +36,6 @@ read -p 'Digite a versão (X.Y.Z) do Hadoop a ser baixada: ' HADOOP_VERSION
 cat << EOF > /etc/profile.d/hadoop.sh
 #!/bin/bash
 
-export HADOOP_VERSION='${HADOOP_VERSION}'
 export HADOOP_HOME='/usr/local/hadoop'
 export HADOOP_INSTALL="\${HADOOP_HOME}"
 export PATH="\${PATH}:\${HADOOP_HOME}/bin:\${HADOOP_HOME}/sbin"
