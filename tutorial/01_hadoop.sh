@@ -29,7 +29,7 @@ EOF
 
 groupadd -r hadoop
 
-useradd -rm -c 'Hadoop User' -s /bin/bash -d /var/lib/hadoop -k /etc/skel -g hadoop hadoop
+useradd -rm -c 'Hadoop User' -s /bin/bash -d /var/local/hadoop -k /etc/skel -g hadoop hadoop
 
 read -p 'Digite a versão (X.Y.Z) do Hadoop a ser baixada: ' HADOOP_VERSION
 
@@ -49,9 +49,9 @@ export LD_LIBRARY_PATH="\${LD_LIBRARY_PATH}:\${HADOOP_COMMON_LIB_NATIVE_DIR}"
 export HADOOP_OPTS="-Djava.library.path=\${HADOOP_COMMON_LIB_NATIVE_DIR} -XX:-PrintWarnings -Djava.net.preferIPv4Stack=true"
 export HADOOP_CONF_DIR="/etc/hadoop"                                   
 export HADOOP_LOG_DIR='/var/log/hadoop'
-export HADOOP_TMP_DIR='/var/lib/hadoop/tmp'
-export HADOOP_DATANODE_DIR='/var/lib/hadoop/hdfs/datanode'
-export HADOOP_NAMENODE_DIR='/var/lib/hadoop/hdfs/namenode'
+export HADOOP_TMP_DIR='/var/local/hadoop/tmp'
+export HADOOP_DATANODE_DIR='/var/local/hadoop/hdfs/datanode'
+export HADOOP_NAMENODE_DIR='/var/local/hadoop/hdfs/namenode'
 export HDFS_NAMENODE_USER='hadoop'
 export HDFS_DATANODE_USER='hadoop'
 export HDFS_SECONDARYNAMENODE_USER='hadoop'
@@ -240,5 +240,3 @@ hdfs dfsadmin -safemode leave
 # check status of safemode
 
 hdfs dfsadmin -safemode get
-
-
