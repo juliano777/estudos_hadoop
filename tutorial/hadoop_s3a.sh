@@ -27,14 +27,19 @@ ls ${HADOOP_HOME}/share/hadoop/tools/lib/*aws-*.jar | \
 
 
 
+# Endereço de armazenamento S3:
 
-cat << EOF > /etc/hadoop/core-site.xml
-<!-- core-site.xml -->
-<configuration>
+read -p 'Digite o endereço do armazenamento S3: ' S3_ADDR
+
+
+
+# Modificações no arquivo core-site.xml:
+
+"
     <property>
         <name>fs.s3a.endpoint</name>
         <description>AWS S3 endpoint to connect to.</description>
-        <value>http://192.168.56.4:9000</value>
+        <value>${S3_ADDR}</value>
     </property>
 
     <property>
@@ -65,9 +70,7 @@ cat << EOF > /etc/hadoop/core-site.xml
         <value>1</value>
         <description>How many times we should retry commands on transient errors.</description>
     </property>
-
-</configuration>
-EOF
+"
 
 
 hadoop fs -put /boot/vmlinuz-4.17.3-jx s3a://foo/
