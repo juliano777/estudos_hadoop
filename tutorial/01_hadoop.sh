@@ -203,7 +203,7 @@ EOF
 
 mkdir -p ${HADOOP_LOG_DIR} ${HADOOP_DATANODE_DIR} ${HADOOP_NAMENODE_DIR} 
 
-chown -R hadoop: /usr/local/hadoop /var/{lib,log}/hadoop /etc/hadoop/
+chown -R hadoop: /usr/local/hadoop /var/{local,log}/hadoop /etc/hadoop/
 
 su - hadoop -c 'hdfs namenode -format'
 
