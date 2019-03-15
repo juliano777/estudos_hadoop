@@ -35,7 +35,9 @@ read -p 'Digite o endereço do armazenamento S3: ' S3_ADDR
 
 # Modificações no arquivo core-site.xml:
 
-"
+"   
+    <!-- S3 -->
+
     <property>
         <name>fs.s3a.endpoint</name>
         <description>AWS S3 endpoint to connect to.</description>
@@ -70,6 +72,8 @@ read -p 'Digite o endereço do armazenamento S3: ' S3_ADDR
         <value>1</value>
         <description>How many times we should retry commands on transient errors.</description>
     </property>
+
+    <!-- ================================================================== -->
 "
 
 
