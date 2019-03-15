@@ -213,7 +213,7 @@ su - hadoop -c 'start-yarn.sh'
 
 su - hadoop
 
-hdfs dfs -mkdir /teste
+hadoop fs -mkdir /teste
 
 wget -c https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-4.15.3.tar.xz -P /tmp
 
