@@ -57,6 +57,7 @@ export HDFS_SECONDARYNAMENODE_USER='hadoop'
 export YARN_RESOURCEMANAGER_USER='hadoop'
 export YARN_NODEMANAGER_USER='hadoop'
 export HADOOP_CLASSPATH="\${HADOOP_HOME}/share/hadoop/tools/lib"
+export HADOOP_ROOT_LOGGER='WARN'
 EOF
 
 source /etc/profile.d/hadoop.sh
