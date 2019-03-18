@@ -148,7 +148,7 @@ cat << EOF > ${HIVE_HOME}/conf/hive-site.xml
 
     <property>
         <name>hive.metastore.warehouse.dir</name>
-        <value>s3a://hive/warehouse</value>
+        <value>${WAREHOUSE_URL}</value>
     </property>
 
     <property>
