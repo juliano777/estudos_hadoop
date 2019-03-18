@@ -119,14 +119,13 @@ cat << EOF > ${HIVE_HOME}/conf/hive-site.xml
     <property>
         <name>fs.s3a.access.key</name>
         <description>AWS access key ID.</description>
-        <value>5D0EN4B8SF7EYUJH1V8I</value>
+        <value>${ACCESS_KEY}</value>
     </property>
 
     <property>
         <name>fs.s3a.secret.key</name>
         <description>AWS secret key.</description>
-        <value>BjtgRNuLHBSEUU4e2Yzz/lBVjoFVnIvCr6rGFRXo</value>
-        <!-- NOTE: Above value is obtained from the minio start window -->
+        <value>${SECRET_KEY}</value>
     </property>
 
     <property>
@@ -144,13 +143,6 @@ cat << EOF > ${HIVE_HOME}/conf/hive-site.xml
         <name>hive.metastore.warehouse.dir</name>
         <value>s3a://hive/warehouse</value>
     </property>
-
-    <!--
-    <property>
-        <name>hive.metastore.schema.verification</name>
-        <value>true</value>
-    </property>
-    -->
 
     <property>
         <name>hive.execution.engine</name>
