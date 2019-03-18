@@ -33,6 +33,18 @@ read -p 'Digite o endereço do armazenamento S3: ' S3_ADDR
 
 
 
+# Variável de ambiente para Access Key:
+
+read -p 'Digite a Access Key: ' ACCESS_KEY
+
+
+
+# Variável de ambiente para Secret Key:
+
+read -p 'Digite a Secret Key: ' SECRET_KEY
+
+
+
 # Modificações no arquivo core-site.xml:
 
 "   
@@ -47,30 +59,19 @@ read -p 'Digite o endereço do armazenamento S3: ' S3_ADDR
     <property>
         <name>fs.s3a.access.key</name>
         <description>AWS access key ID.</description>
-        <value>5D0EN4B8SF7EYUJH1V8I</value>
+        <value>${ACCESS_KEY}</value>
     </property>
 
     <property>
         <name>fs.s3a.secret.key</name>
         <description>AWS secret key.</description>
-        <value>BjtgRNuLHBSEUU4e2Yzz/lBVjoFVnIvCr6rGFRXo</value>
+        <value>${SECRET_KEY}</value>
     </property>
 
     <property>
         <name>fs.s3a.path.style.access</name>
         <value>true</value>
         <description>Enable S3 path style access.</description>
-    </property>
-
-    <property>
-        <name>fs.s3a.connection.timeout</name>
-        <value>10</value>
-    </property>
-
-    <property>
-        <name>fs.s3a.attempts.maximum</name>
-        <value>1</value>
-        <description>How many times we should retry commands on transient errors.</description>
     </property>
 
     <!-- ================================================================== -->

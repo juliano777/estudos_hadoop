@@ -239,3 +239,7 @@ hadoop fsadmin -safemode leave
 # check status of safemode
 
 hadoop fsadmin -safemode get
+
+# Para casos em que há uma necessidade de ter um nível maior de informações:
+
+export HADOOP_ROOT_LOGGER=DEBUG,console
