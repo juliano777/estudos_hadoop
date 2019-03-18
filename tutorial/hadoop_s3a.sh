@@ -45,10 +45,10 @@ read -p 'Digite a Secret Key: ' SECRET_KEY
 
 
 
-# Variável de ambiente para o caminho de WareHouse do Hive
+# Variável de ambiente para a URL de WareHouse do Hive
 # (e. g. s3a://<bucket>/dir):
 
-read -p 'Digite a Secret Key: ' SECRET_KEY
+read -p 'Digite a Secret Key: ' WAREHOUSE_URL
 
 
 
