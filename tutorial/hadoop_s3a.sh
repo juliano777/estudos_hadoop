@@ -110,32 +110,16 @@ cat << EOF > ${HIVE_HOME}/conf/hive-site.xml
         <value>123</value>
     </property>
 
-    <!-- 
-    <property>
-        <name>datanucleus.autoCreateSchema</name>
-        <value>false</value>
-    </property>
-        
-    <property>
-        <name>hive.metastore.uris</name>
-        <value>thrift://hadoop-alpha:9083</value>
-        <description>IP address (or fully-qualified domain name) and port of the metastore host</description>
-    </property>
-    -->
-
-
-    <property>
+   <property>
         <name>fs.s3a.endpoint</name>
         <description>AWS S3 endpoint to connect to.</description>
-        <value>http://192.168.56.4:9000</value>
-        <!-- NOTE: Above value is obtained from the minio start window -->
+        <value>${S3_ADDR}</value>
     </property>
 
     <property>
         <name>fs.s3a.access.key</name>
         <description>AWS access key ID.</description>
         <value>5D0EN4B8SF7EYUJH1V8I</value>
-        <!-- NOTE: Above value is obtained from the minio start window -->
     </property>
 
     <property>
