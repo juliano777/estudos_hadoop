@@ -45,6 +45,13 @@ read -p 'Digite a Secret Key: ' SECRET_KEY
 
 
 
+# Variável de ambiente para o caminho de WareHouse do Hive
+# (e. g. s3a://<bucket>/dir):
+
+read -p 'Digite a Secret Key: ' SECRET_KEY
+
+
+
 # Modificações no arquivo core-site.xml:
 
 "   
