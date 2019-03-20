@@ -1,23 +1,10 @@
 # Hive =======================================================================
 
-cd /usr/local
-
-read -p 'Digite a versão (X.Y.Z) do Hive a ser baixada: ' HIVE_VERSION
-
-wget -c http://ftp.unicamp.br/pub/apache/hive/hive-${HIVE_VERSION}/apache-hive-${HIVE_VERSION}-bin.tar.gz
-
-tar xf apache-hive-${HIVE_VERSION}-bin.tar.gz
-
-mv apache-hive-${HIVE_VERSION}-bin hive
-
-rm -f apache-hive-${HIVE_VERSION}-bin.tar.gz
-
-
 cat << EOF > /etc/profile.d/hive.sh
 #!/bin/bash
 
 export HIVE_HOME='/usr/local/hive'
-export HIVE_CONF_DIR="\${HIVE_HOME}/conf"
+export HIVE_CONF_DIR="/etc/hive"
 export HADOOP_CLASSPATH="\${HADOOP_CLASSPATH}:\${HIVE_HOME}/lib"
 export HIVE_PORT='10000'
 
@@ -32,7 +19,26 @@ EOF
 
 source /etc/profile.d/hive.sh
 
-cp ${HIVE_HOME}/conf/hive-env.sh.template ${HIVE_HOME}/conf/hive-env.sh
+cd /usr/local
+
+read -p 'Digite a versão (X.Y.Z) do Hive a ser baixada: ' HIVE_VERSION
+
+wget -c http://ftp.unicamp.br/pub/apache/hive/hive-${HIVE_VERSION}/apache-hive-${HIVE_VERSION}-bin.tar.gz
+
+tar xf apache-hive-${HIVE_VERSION}-bin.tar.gz
+
+mv apache-hive-${HIVE_VERSION}-bin hive
+
+rm -f apache-hive-${HIVE_VERSION}-bin.tar.gz
+
+rm -fr /etc/hive
+
+mv hive/conf ${HIVE_CONF_DIR}
+
+chown -R hadoop: ${HIVE_CONF_DIR}
+
+
+cp ${HIVE_CONF_DIR}/hive-env.sh.template ${HIVE_CONF_DIR}/hive-env.sh
 
 rpm -Uvh https://download.postgresql.org/pub/repos/yum/11/redhat/rhel-7-x86_64/pgdg-centos10-10-2.noarch.rpm
 
