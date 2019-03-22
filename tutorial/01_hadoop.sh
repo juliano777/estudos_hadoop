@@ -49,7 +49,7 @@ export HADOOP_OPTS="-Djava.library.path=\${HADOOP_COMMON_LIB_NATIVE_DIR} \
                     -XX:-PrintWarnings \
                     -Djava.net.preferIPv4Stack=true \
                     -Dhadoop.root.logger=WARN"
-export HADOOP_CONF_DIR="/etc/hadoop"                                   
+export HADOOP_CONF_DIR="/etc/hadoop"
 export HADOOP_LOG_DIR='/var/log/hadoop'
 export HADOOP_TMP_DIR='/var/local/hadoop/tmp'
 export HADOOP_DATANODE_DIR='/var/local/hadoop/hdfs/datanode'
@@ -60,6 +60,13 @@ export HDFS_SECONDARYNAMENODE_USER='hadoop'
 export YARN_RESOURCEMANAGER_USER='hadoop'
 export YARN_NODEMANAGER_USER='hadoop'
 export HADOOP_ROOT_LOGGER='WARN'
+
+if [ -z \${CLASSPATH} ]; then
+    export CLASSPATH=".:\${HADOOP_HOME}/share/hadoop/common/lib/"
+else
+    export CLASSPATH=".:\${HADOOP_HOME}/share/hadoop/common/lib/:\${CLASSPATH}"
+fi
+
 EOF
 
 source /etc/profile.d/hadoop.sh
@@ -204,7 +211,7 @@ ${SRV_3}
 EOF
 
 
-mkdir -p ${HADOOP_LOG_DIR} ${HADOOP_DATANODE_DIR} ${HADOOP_NAMENODE_DIR} 
+mkdir -p ${HADOOP_LOG_DIR} ${HADOOP_DATANODE_DIR} ${HADOOP_NAMENODE_DIR}
 
 chown -R hadoop: /usr/local/hadoop /var/{local,log}/hadoop /etc/hadoop/
 
@@ -232,7 +239,7 @@ Found 1 items
 
 hadoop fs -get /teste/linux-4.15.3.tar.xz /tmp/
 
-ls -lh /tmp/linux-4.15.3.tar.xz 
+ls -lh /tmp/linux-4.15.3.tar.xz
 -rw-r--r-- 1 hadoop hadoop 98M Feb 14 09:46 /tmp/linux-4.15.3.tar.xz
 
 # Sair do modo de segurança:
