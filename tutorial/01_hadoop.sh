@@ -66,7 +66,6 @@ if [ -z \${CLASSPATH} ]; then
 else
     export CLASSPATH="\${HADOOP_HOME}/share/hadoop/common/lib/:\${CLASSPATH}"
 fi
-
 EOF
 
 source /etc/profile.d/hadoop.sh
