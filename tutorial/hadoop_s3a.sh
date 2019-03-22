@@ -170,7 +170,7 @@ hiveserver2 --service metastore &
 
 hiveserver2 start &
 
-cat << EOF > $SPARK_CONF_DIR/spark-defaults.conf
+cat << EOF >> $SPARK_CONF_DIR/spark-defaults.conf
 
 spark.yarn.jars=file://${SPARK_HOME}/jars/*.jar,\
 file://${HADOOP_HOME}/share/hadoop/common/lib/*.jar
