@@ -170,13 +170,13 @@ hiveserver2 --service metastore &
 
 hiveserver2 start &
 
-vim $SPARK_CONF_DIR/spark-defaults.conf
+cat << EOF > $SPARK_CONF_DIR/spark-defaults.conf
 
-'
-#spark.yarn.jars=file://{spark/home/dir}/jars/*.jar,file://{hadoop/install/dir}/share/hadoop/tools/lib/*.jar
-
+spark.yarn.jars=file://${SPARK_HOME}/jars/*.jar,\
+file://${HADOOP_HOME}/share/hadoop/common/lib/*.jar
 
 spark.hadoop.fs.s3a.impl=org.apache.hadoop.fs.s3a.S3AFileSystem
-spark.hadoop.fs.s3a.access.key={s3a.access.key}
+spark.hadoop.fs.s3a.endpoint=${S3_ADDR}
+spark.hadoop.fs.s3a.access.key=${ACCESS_KEY}
 spark.hadoop.fs.s3a.secret.key=${SECRET_KEY}
-'
+EOF
