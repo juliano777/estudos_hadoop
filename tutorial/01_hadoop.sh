@@ -62,7 +62,7 @@ export YARN_NODEMANAGER_USER='hadoop'
 export HADOOP_ROOT_LOGGER='WARN'
 
 if [ -z \${CLASSPATH} ]; then
-    export CLASSPATH=".:\${HADOOP_HOME}/share/hadoop/common/lib/"
+    export CLASSPATH="\${HADOOP_HOME}/share/hadoop/common/lib/"
 else
     export CLASSPATH="\${HADOOP_HOME}/share/hadoop/common/lib/:\${CLASSPATH}"
 fi
