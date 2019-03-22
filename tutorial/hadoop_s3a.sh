@@ -54,7 +54,7 @@ read -p 'Digite a Secret Key: ' WAREHOUSE_URL
 
 # Modificações no arquivo core-site.xml:
 
-"   
+"
     <!-- S3 -->
 
     <property>
@@ -101,17 +101,17 @@ cat << EOF > ${HIVE_HOME}/conf/hive-site.xml
         <name>hive.aux.jars.path</name>
         <value>file:///usr/local/hive/lib</value>
     </property>
- 
+
     <property>
         <name>javax.jdo.option.ConnectionDriverName</name>
         <value>org.postgresql.Driver</value>
     </property>
- 
+
     <property>
         <name>javax.jdo.option.ConnectionUserName</name>
         <value>user_hive</value>
     </property>
- 
+
     <property>
         <name>javax.jdo.option.ConnectionPassword</name>
         <value>123</value>
@@ -169,3 +169,14 @@ schematool -initSchema -dbType postgres
 hiveserver2 --service metastore &
 
 hiveserver2 start &
+
+vim $SPARK_CONF_DIR/spark-defaults.conf
+
+'
+#spark.yarn.jars=file://{spark/home/dir}/jars/*.jar,file://{hadoop/install/dir}/share/hadoop/tools/lib/*.jar
+
+
+spark.hadoop.fs.s3a.impl=org.apache.hadoop.fs.s3a.S3AFileSystem
+spark.hadoop.fs.s3a.access.key={s3a.access.key}
+spark.hadoop.fs.s3a.secret.key=${SECRET_KEY}
+'
