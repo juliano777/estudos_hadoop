@@ -51,9 +51,9 @@ cat << EOF > /tmp/emp.json
 {"id" : 1205, "name" : "prudvi", "age" : 23}
 EOF
 
-hdfs dfs -mkdir /tmp
+hadoop fs -mkdir /tmp
 
-hdfs dfs -put /tmp/emp.json /tmp/
+hadoop fs -put /tmp/emp.json /tmp/
 
 spark-shell
 
