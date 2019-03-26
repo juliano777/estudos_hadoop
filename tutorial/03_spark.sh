@@ -27,7 +27,7 @@ export SPARK_CONF_DIR="/etc/spark"
 export PATH="\${PATH}:\${SPARK_HOME}/bin"
 export PYSPARK_PYTHON='/bin/python3.6'
 export PYSPARK_DRIVER_PYTHON='ipython3'
-export SPARK_DIST_CLASSPATH=\`hadoop classpath\`
+export SPARK_DIST_CLASSPATH="\`hadoop classpath\`"
 
 if [ -z \${CLASSPATH} ]; then
     export CLASSPATH="\${SPARK_HOME}/jars"
