@@ -8,20 +8,22 @@ read -p 'Spark: Digite a versão a ser baixada: ' SPARK_VERSION
 
 cd /usr/local/
 
-wget -c http://mirror.nbtelecom.com.br/apache/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop2.7.tgz
+wget -c https://archive.apache.org/dist/spark/spark-${SPARK_VERSION}/\
+spark-${SPARK_VERSION}-bin-without-hadoop.tgz
 
+tar xf spark-${SPARK_VERSION}-bin-without-hadoop.tgz
 
-tar xf spark-${SPARK_VERSION}-bin-hadoop2.7.tgz
+rm -f spark-${SPARK_VERSION}-bin-without-hadoop.tgz
 
-rm -f spark-${SPARK_VERSION}-bin-hadoop2.7.tgz
+mv spark-${SPARK_VERSION}-bin-without-hadoop/ spark
 
-mv spark-${SPARK_VERSION}-bin-hadoop2.7/ spark
+mv spark/conf /etc/spark
 
 find spark/ -name *.cmd -delete
 
 cat << EOF > /etc/profile.d/spark.sh
 export SPARK_HOME='/usr/local/spark'
-export SPARK_CONF_DIR="\${SPARK_HOME}/conf"
+export SPARK_CONF_DIR="/etc/spark"
 export PATH="\${PATH}:\${SPARK_HOME}/bin"
 export PYSPARK_PYTHON='/bin/python3.6'
 export PYSPARK_DRIVER_PYTHON='ipython3'
@@ -144,5 +146,3 @@ https://www.cloudera.com/documentation/enterprise/5-6-x/topics/cdh_ig_hive_metas
 FAILED SemanticException org.apache.hadoop.hive.ql.metadata.HiveException java.lang.RuntimeException: Unable to instantiate org.apache.hadoop.hive.ql.metadata.SessionHiveMetaStoreClient
 
 https://cwiki.apache.org/confluence/display/Hive/Hive+on+Spark%3A+Getting+Started
-
-
