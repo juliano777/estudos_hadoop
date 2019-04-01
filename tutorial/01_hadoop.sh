@@ -204,7 +204,7 @@ EOF
 
 echo "${SRV_1}" > ${HADOOP_CONF_DIR}/masters
 
-cat << EOF > ${HADOOP_CONF_DIR}/slaves
+cat << EOF > ${HADOOP_CONF_DIR}/workers
 ${SRV_2}
 ${SRV_3}
 EOF
