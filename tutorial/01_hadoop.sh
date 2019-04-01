@@ -222,32 +222,32 @@ su - hadoop -c 'start-yarn.sh'
 
 su - hadoop
 
-hadoop fs -mkdir /teste
+hdfs dfs -mkdir /teste
 
 wget -c https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-4.15.3.tar.xz -P /tmp
 
-hadoop fs -put /tmp/linux-4.15.3.tar.xz /teste/
+hdfs dfs -put /tmp/linux-4.15.3.tar.xz /teste/
 
-hadoop fs -ls /teste
+hdfs dfs -ls /teste
 Found 1 items
 -rw-r--r--   1 hadoop supergroup  102188708 2018-02-13 17:02 /teste/linux-4.15.3.tar.xz
 
-hadoop fs -ls -h /teste
+hdfs dfs -ls -h /teste
 Found 1 items
 -rw-r--r--   1 hadoop supergroup     97.5 M 2018-02-13 17:02 /teste/linux-4.15.3.tar.xz
 
-hadoop fs -get /teste/linux-4.15.3.tar.xz /tmp/
+hdfs dfs -get /teste/linux-4.15.3.tar.xz /tmp/
 
 ls -lh /tmp/linux-4.15.3.tar.xz
 -rw-r--r-- 1 hadoop hadoop 98M Feb 14 09:46 /tmp/linux-4.15.3.tar.xz
 
 # Sair do modo de segurança:
 
-hadoop fsadmin -safemode leave
+hdfs dfsadmin -safemode leave
 
 # check status of safemode
 
-hadoop fsadmin -safemode get
+hdfs dfsadmin -safemode get
 
 # Para casos em que há uma necessidade de ter um nível maior de informações:
 
