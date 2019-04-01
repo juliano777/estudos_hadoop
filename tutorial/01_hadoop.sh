@@ -331,7 +331,6 @@ hdfs --config ${HADOOP_CONF_DIR} --daemon start httpfs
 14000
 42558
 50090
-
 "
 
 
