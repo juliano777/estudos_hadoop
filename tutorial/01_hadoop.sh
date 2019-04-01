@@ -355,3 +355,19 @@ yarn --config ${HADOOP_CONF_DIR} --daemon start resourcemanager
 42558
 50090
 "
+
+
+
+# Java Process Status...
+
+jps
+
+"
+105253 DataNode
+105559 JournalNode
+105960 ResourceManager
+105706 SecondaryNameNode
+107242 HttpFSServerWebServer
+107373 Jps
+105372 NameNode
+"
