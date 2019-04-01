@@ -252,3 +252,82 @@ hdfs dfsadmin -safemode get
 # Para casos em que há uma necessidade de ter um nível maior de informações:
 
 export HADOOP_ROOT_LOGGER=DEBUG,console
+
+
+
+# ============================================================================
+# Starting Services Manually
+# ============================================================================
+
+# Start the data node service:
+
+hdfs --config ${HADOOP_CONF_DIR} --daemon start datanode
+
+"
+9864
+9866
+9867
+42558
+"
+
+
+
+# Start the journal node service:
+
+hdfs --config ${HADOOP_CONF_DIR} --daemon start journalnode
+
+
+
+# Start the name node service:
+
+hdfs --config ${HADOOP_CONF_DIR} --daemon start namenode
+
+"
+9000
+9864
+9866
+9867
+9870
+42558
+"
+
+
+
+# Start the secondary name node service:
+
+hdfs --config ${HADOOP_CONF_DIR} --daemon start secondarynamenode
+
+"
+8480
+8485
+9000
+9864
+9866
+9867
+9870
+42558
+50090
+"
+
+
+
+# Start the resource manager service:
+
+yarn --config ${HADOOP_CONF_DIR} --daemon start resourcemanager
+
+"
+8030
+8031
+8032
+8033
+8088
+8480
+8485
+9000
+9864
+9866
+9867
+9870
+42558
+50090
+"
