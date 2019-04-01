@@ -311,6 +311,31 @@ hdfs --config ${HADOOP_CONF_DIR} --daemon start secondarynamenode
 
 
 
+# Start the HTTP FS service: 
+
+hdfs --config ${HADOOP_CONF_DIR} --daemon start httpfs
+
+"
+8030
+8031
+8032
+8033
+8088
+8480
+8485
+9000
+9864
+9866
+9867
+9870
+14000
+42558
+50090
+
+"
+
+
+
 # Start the resource manager service:
 
 yarn --config ${HADOOP_CONF_DIR} --daemon start resourcemanager
