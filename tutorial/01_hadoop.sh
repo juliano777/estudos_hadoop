@@ -362,9 +362,20 @@ Found 1 items
 -rw-r--r--   1 hadoop supergroup  102188708 2018-02-13 17:02 /teste/linux-4.15.3.tar.xz
 "
 
+
+
+# List the directory (with human readable option):
+
 hdfs dfs -ls -h /teste
+
+"
 Found 1 items
 -rw-r--r--   1 hadoop supergroup     97.5 M 2018-02-13 17:02 /teste/linux-4.15.3.tar.xz
+"
+
+
+
+# 
 
 hdfs dfs -get /teste/linux-4.15.3.tar.xz /tmp/
 
