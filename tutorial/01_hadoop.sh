@@ -397,7 +397,7 @@ hdfs --config ${HADOOP_CONF_DIR} --daemon start datanode
 9864
 9866
 9867
-42558
+33582
 "
 
 
@@ -406,6 +406,10 @@ hdfs --config ${HADOOP_CONF_DIR} --daemon start datanode
 
 hdfs --config ${HADOOP_CONF_DIR} --daemon start journalnode
 
+"
+8480
+8485
+"
 
 
 # Start the name node service:
@@ -414,11 +418,7 @@ hdfs --config ${HADOOP_CONF_DIR} --daemon start namenode
 
 "
 9000
-9864
-9866
-9867
 9870
-42558
 "
 
 
@@ -428,14 +428,6 @@ hdfs --config ${HADOOP_CONF_DIR} --daemon start namenode
 hdfs --config ${HADOOP_CONF_DIR} --daemon start secondarynamenode
 
 "
-8480
-8485
-9000
-9864
-9866
-9867
-9870
-42558
 50090
 "
 
@@ -446,21 +438,7 @@ hdfs --config ${HADOOP_CONF_DIR} --daemon start secondarynamenode
 hdfs --config ${HADOOP_CONF_DIR} --daemon start httpfs
 
 "
-8030
-8031
-8032
-8033
-8088
-8480
-8485
-9000
-9864
-9866
-9867
-9870
 14000
-42558
-50090
 "
 
 
@@ -475,15 +453,6 @@ yarn --config ${HADOOP_CONF_DIR} --daemon start resourcemanager
 8032
 8033
 8088
-8480
-8485
-9000
-9864
-9866
-9867
-9870
-42558
-50090
 "
 
 
