@@ -117,18 +117,43 @@ hadoop-${HADOOP_VERSION}/hadoop-${HADOOP_VERSION}.tar.gz
 
 tar xf hadoop-${HADOOP_VERSION}.tar.gz
 
+
+
+# Rename the Hadoop directory with version to hadoop:
+
 mv hadoop-${HADOOP_VERSION} hadoop
+
+
+
+# Remove the downloaded package:
 
 rm -f hadoop-${HADOOP_VERSION}.tar.gz
 
+
+
+# Remove the garbage files:
+
 find hadoop/ -name *.cmd -delete
+
+
+
+# Move the Hadoop configuration directory to /etc:
 
 mv hadoop/etc/hadoop /etc/
 
-su - hadoop -c "ssh-keygen -t rsa -P '' -f ~/.ssh/id_rsa && cat ~/.ssh/id_rsa.pub > ~/.ssh/authorized_keys && chmod 600 ~/.ssh/*"
 
-sed 's/PasswordAuthentication no/PasswordAuthentication yes/g' -i /etc/ssh/sshd_config
 
+# SSH keys:
+
+su - hadoop -c "\
+    ssh-keygen \
+        -t rsa -P '' -f ~/.ssh/id_rsa \
+    && cat ~/.ssh/id_rsa.pub \
+    > ~/.ssh/authorized_keys && chmod 600 ~/.ssh/*"
+
+
+
+# The main Hadoop configuration file:
 
 cat << EOF > ${HADOOP_CONF_DIR}/core-site.xml
 <configuration>
@@ -148,6 +173,8 @@ cat << EOF > ${HADOOP_CONF_DIR}/core-site.xml
 EOF
 
 
+
+# The HDFS configuration file:
 
 cat << EOF > ${HADOOP_CONF_DIR}/hdfs-site.xml
 <configuration>
@@ -177,6 +204,10 @@ cat << EOF > ${HADOOP_CONF_DIR}/hdfs-site.xml
 </configuration>
 EOF
 
+
+
+# The Map Reduce configuration file:
+
 cat << EOF > ${HADOOP_CONF_DIR}/mapred-site.xml
 <configuration>
 
@@ -197,6 +228,10 @@ cat << EOF > ${HADOOP_CONF_DIR}/mapred-site.xml
 
 </configuration>
 EOF
+
+
+
+# The Yarn configuration file:
 
 cat << EOF > ${HADOOP_CONF_DIR}/yarn-site.xml
 <configuration>
@@ -238,12 +273,24 @@ cat << EOF > ${HADOOP_CONF_DIR}/yarn-site.xml
 </configuration>
 EOF
 
+
+
+# hadoop-env.sh file:
+
 cat << EOF > ${HADOOP_CONF_DIR}/hadoop-env.sh
 source /etc/profile.d/jdk.sh
 source /etc/profile.d/hadoop.sh
 EOF
 
+
+
+# masters file:
+
 echo "${SRV_1}" > ${HADOOP_CONF_DIR}/masters
+
+
+
+# workers file:
 
 cat << EOF > ${HADOOP_CONF_DIR}/workers
 ${SRV_2}
@@ -251,7 +298,14 @@ ${SRV_3}
 EOF
 
 
+
+# Directories creation:
+
 mkdir -p ${HADOOP_LOG_DIR} ${HADOOP_DATANODE_DIR} ${HADOOP_NAMENODE_DIR}
+
+
+
+# Change owner to user and group Hadoop:
 
 chown -R hadoop: /usr/local/hadoop /var/{local,log}/hadoop /etc/hadoop/
 
