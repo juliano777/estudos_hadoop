@@ -493,7 +493,7 @@ yarn --config ${HADOOP_CONF_DIR} --daemon start resourcemanager
 
 
 
-# Java Process Status...
+# Java Process Status:
 
 jps
 
