@@ -375,9 +375,13 @@ Found 1 items
 
 
 
-# 
+# Get the file from the HDFS:
 
 hdfs dfs -get /teste/linux-4.15.3.tar.xz /tmp/
+
+
+
+# 
 
 ls -lh /tmp/linux-4.15.3.tar.xz
 -rw-r--r-- 1 hadoop hadoop 98M Feb 14 09:46 /tmp/linux-4.15.3.tar.xz
