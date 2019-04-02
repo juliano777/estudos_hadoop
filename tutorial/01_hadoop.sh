@@ -397,7 +397,7 @@ ls -lh /tmp/linux-4.15.3.tar.xz
 
 
 
-# check status of safemode
+# Check status of safemode
 
 hdfs dfsadmin -safemode get
 
