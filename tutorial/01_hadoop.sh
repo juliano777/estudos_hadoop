@@ -339,13 +339,28 @@ su - hadoop
 
 hdfs dfs -mkdir /teste
 
+
+
+# Download a file (in this case, the Linux kernel) to /tmp directory:
+
 wget -c https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-4.15.3.tar.xz -P /tmp
+
+
+
+# Put the downloaded file to /teste directory in HDFS:
 
 hdfs dfs -put /tmp/linux-4.15.3.tar.xz /teste/
 
+
+
+# List the directory:
+
 hdfs dfs -ls /teste
+
+"
 Found 1 items
 -rw-r--r--   1 hadoop supergroup  102188708 2018-02-13 17:02 /teste/linux-4.15.3.tar.xz
+"
 
 hdfs dfs -ls -h /teste
 Found 1 items
