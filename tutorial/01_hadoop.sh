@@ -20,6 +20,10 @@ read -p 'Digite o IP do segundo servidor: ' SRV_2_IP
 read -p 'Digite o hostname do terceiro servidor: ' SRV_3
 read -p 'Digite o IP do terceiro servidor: ' SRV_3_IP
 
+
+
+# The /etc/hosts file:
+
 cat << EOF >> /etc/hosts
 ${SRV_1_IP} ${SRV_1}.local ${SRV_1}
 ${SRV_2_IP} ${SRV_2}.local ${SRV_2}
@@ -27,11 +31,31 @@ ${SRV_3_IP} ${SRV_3}.local ${SRV_3}
 EOF
 
 
+
+# Create the system group for Hadoop:
+
 groupadd -r hadoop
 
-useradd -rm -c 'Hadoop User' -s /bin/bash -d /var/local/hadoop -k /etc/skel -g hadoop hadoop
+
+
+# Create the system user group for Hadoop:
+
+useradd -rm \
+    -c 'Hadoop User' \
+    -s /bin/bash \
+    -d /var/local/hadoop \
+    -k /etc/skel \
+    -g hadoop hadoop
+
+
+
+# Environment variable for the Hadoop Version:
 
 read -p 'Digite a versão (X.Y.Z) do Hadoop a ser baixada: ' HADOOP_VERSION
+
+
+
+# Global profile for Hadoop Instalation:
 
 cat << EOF > /etc/profile.d/hadoop.sh
 #!/bin/bash
@@ -68,11 +92,28 @@ else
 fi
 EOF
 
+
+
+# Apply the Hadoop Profile:
+
 source /etc/profile.d/hadoop.sh
+
+
+
+# Directory where Hadoop installation will be:
 
 cd /usr/local
 
-wget -c http://ftp.unicamp.br/pub/apache/hadoop/common/hadoop-${HADOOP_VERSION}/hadoop-${HADOOP_VERSION}.tar.gz
+
+
+# Download the Hadoop binary:
+
+wget -c http://ftp.unicamp.br/pub/apache/hadoop/common/\
+hadoop-${HADOOP_VERSION}/hadoop-${HADOOP_VERSION}.tar.gz
+
+
+
+# Extract the package:
 
 tar xf hadoop-${HADOOP_VERSION}.tar.gz
 
