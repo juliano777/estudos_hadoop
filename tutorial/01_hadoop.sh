@@ -309,13 +309,33 @@ mkdir -p ${HADOOP_LOG_DIR} ${HADOOP_DATANODE_DIR} ${HADOOP_NAMENODE_DIR}
 
 chown -R hadoop: /usr/local/hadoop /var/{local,log}/hadoop /etc/hadoop/
 
+
+
+# Format the name node:
+
 su - hadoop -c 'hdfs namenode -format'
+
+
+
+# Start Distributed File System:
 
 su - hadoop -c 'start-dfs.sh'
 
+
+
+# Start Yarn:
+
 su - hadoop -c 'start-yarn.sh'
 
+
+
+# Change to Hadoop system user:
+
 su - hadoop
+
+
+
+# Create a test directory in HDFS:
 
 hdfs dfs -mkdir /teste
 
