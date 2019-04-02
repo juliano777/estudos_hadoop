@@ -1,25 +1,60 @@
 # ============================================================================
 # Spark
 
-# https://www.tutorialspoint.com/spark_sql/spark_sql_quick_guide.htm
+
+
+
+
+#
 
 read -p 'Spark: Digite a versão a ser baixada: ' SPARK_VERSION
 
 
+
+# 
+
 cd /usr/local/
+
+
+
+#
 
 wget -c https://archive.apache.org/dist/spark/spark-${SPARK_VERSION}/\
 spark-${SPARK_VERSION}-bin-without-hadoop.tgz
 
+
+
+#
+
 tar xf spark-${SPARK_VERSION}-bin-without-hadoop.tgz
+
+
+
+# 
 
 rm -f spark-${SPARK_VERSION}-bin-without-hadoop.tgz
 
+
+
+#
+
 mv spark-${SPARK_VERSION}-bin-without-hadoop/ spark
+
+
+
+#
 
 mv spark/conf /etc/spark
 
+
+
+#
+
 find spark/ -name *.cmd -delete
+
+
+
+#
 
 cat << EOF > /etc/profile.d/spark.sh
 export SPARK_HOME='/usr/local/spark'
@@ -39,10 +74,21 @@ export SPARK_LOCAL_IP="${SRV_1_IP}"
 export SPARK_PUBLIC_DNS="${SRV_1}"
 EOF
 
+
+
+#
+
 source /etc/profile.d/spark.sh
+
+
+
+#
 
 cp spark/conf/spark-defaults.conf.template spark/conf/spark-defaults.conf
 
+
+
+#
 
 cat << EOF > /tmp/emp.json
 {"id" : 1201, "name" : "satish", "age" : 25},
@@ -52,9 +98,21 @@ cat << EOF > /tmp/emp.json
 {"id" : 1205, "name" : "prudvi", "age" : 23}
 EOF
 
-hadoop fs -mkdir /tmp
 
-hadoop fs -put /tmp/emp.json /tmp/
+
+# 
+
+hdfs dfs-mkdir /tmp
+
+
+
+# 
+
+hdfs dfs-put /tmp/emp.json /tmp/
+
+
+
+# 
 
 spark-shell
 

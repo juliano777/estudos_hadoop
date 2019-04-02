@@ -13,9 +13,13 @@
 
 tar xvf /tmp/jdk-${JDK_VERSION}_linux-x64_bin.tar.gz -C /usr/local/
 
+
+
 # Mude o nome do diretório tirando a versão:
 
 mv /usr/local/jdk-${JDK_VERSION} /usr/local/jdk
+
+
 
 # Crie o arquivo e variáveis de ambiente Java
 
