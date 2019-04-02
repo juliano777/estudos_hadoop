@@ -389,13 +389,25 @@ ls -lh /tmp/linux-4.15.3.tar.xz
 -rw-r--r-- 1 hadoop hadoop 98M Feb 14 09:46 /tmp/linux-4.15.3.tar.xz
 "
 
-# Sair do modo de segurança:
 
-hdfs dfsadmin -safemode leave
+
+# ============================================================================
+# Safe Mode
+# ============================================================================
+
+
 
 # check status of safemode
 
 hdfs dfsadmin -safemode get
+
+
+
+# Exit from safe mode:
+
+hdfs dfsadmin -safemode leave
+
+
 
 # Para casos em que há uma necessidade de ter um nível maior de informações:
 
