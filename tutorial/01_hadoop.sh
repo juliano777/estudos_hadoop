@@ -409,7 +409,13 @@ hdfs dfsadmin -safemode leave
 
 
 
-# Para casos em que há uma necessidade de ter um nível maior de informações:
+# ============================================================================
+# Log level
+# ============================================================================
+
+
+
+# For a higher log level:
 
 export HADOOP_ROOT_LOGGER=DEBUG,console
 
