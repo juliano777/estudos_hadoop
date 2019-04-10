@@ -179,7 +179,7 @@ EOF
 cat << EOF > ${HADOOP_CONF_DIR}/hdfs-site.xml
 <configuration>
 <property>
- <name>dfs.secondary.http.address</name>
+ <name>dfs.namenode.secondary.http-address</name>
         <value>${SRV_1}:50090</value>
         <description>Secondary NameNode hostname</description>
 </property>
