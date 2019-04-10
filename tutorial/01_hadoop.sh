@@ -42,7 +42,7 @@ export MASTER_NODE=`head -1 /tmp/myhosts | awk '{print $2}'`
 
 # The /etc/hosts file:
 
-cat /tmp/myhosts /etc/hosts
+cat /tmp/myhosts >> /etc/hosts
 
 
 
