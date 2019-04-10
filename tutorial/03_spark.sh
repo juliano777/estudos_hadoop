@@ -84,7 +84,7 @@ source /etc/profile.d/spark.sh
 
 #
 
-cp spark/conf/spark-defaults.conf.template spark/conf/spark-defaults.conf
+cp /etc/spark/spark-defaults.conf.template /etc/spark/spark-defaults.conf
 
 
 
