@@ -48,6 +48,12 @@ mv spark/conf /etc/spark
 
 
 
+# 
+
+chown -R hadoop: /etc/spark
+
+
+
 #
 
 find spark/ -name *.cmd -delete
