@@ -184,12 +184,12 @@ cat << EOF > ${HADOOP_CONF_DIR}/hdfs-site.xml
         <description>Secondary NameNode hostname</description>
 </property>
 <property>
-        <name>dfs.data.dir</name>
+        <name>dfs.datanode.data.dir</name>
         <value>${HADOOP_DATANODE_DIR}</value>
         <final>true</final>
 </property>
 <property>
-        <name>dfs.name.dir</name>
+        <name>dfs.namenode.name.dir</name>
         <value>${HADOOP_NAMENODE_DIR}</value>
         <final>true</final>
 </property>
