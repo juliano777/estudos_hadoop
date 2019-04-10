@@ -108,7 +108,7 @@ hdfs dfs -mkdir /tmp
 
 # 
 
-hdfs dfs-put /tmp/emp.json /tmp/
+hdfs dfs -put /tmp/emp.json /tmp/
 
 
 
