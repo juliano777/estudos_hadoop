@@ -306,7 +306,8 @@ echo "${MASTER_NODE}" > ${HADOOP_CONF_DIR}/masters
 
 # workers file:
 
-fgrep -v ${MASTER_NODE} /tmp/myhosts > ${HADOOP_CONF_DIR}/workers
+fgrep -v ${MASTER_NODE} /tmp/myhosts | awk '{print $2}' > \
+	${HADOOP_CONF_DIR}/workers
 
 
 
