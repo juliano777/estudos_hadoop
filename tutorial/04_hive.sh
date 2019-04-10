@@ -44,7 +44,7 @@ rpm -Uvh https://download.postgresql.org/pub/repos/yum/11/redhat/rhel-7-x86_64/p
 
 wget -c https://jdbc.postgresql.org/download/postgresql-42.2.5.jar -P /usr/local/jdk/lib/
 
-cat << EOF > ${HIVE_HOME}/conf/hive-site.xml
+cat << EOF > ${HIVE_CONF_DIR}/hive-site.xml
 <configuration>
     <property>
         <name>javax.jdo.option.ConnectionURL</name>
