@@ -162,7 +162,7 @@ cat << EOF > ${HADOOP_CONF_DIR}/core-site.xml
         <value>hdfs://${SRV_1}:9000/</value>
 </property>
 <property>
-        <name>dfs.permissions</name>
+        <name>dfs.permissions.enabled</name>
         <value>false</value>
 </property>
 <property>
