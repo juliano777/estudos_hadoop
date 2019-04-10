@@ -3,32 +3,46 @@
 # HADOOP =====================================================================
 
 # =======================================================================================
-export SRV_1='hadoop-alpha'
-export SRV_2='hadoop-beta'
-export SRV_3='hadoop-gamma'
-export SRV_1_IP='192.168.56.3'
-export SRV_2_IP='192.168.56.4'
-export SRV_3_IP='192.168.56.5'
-# =======================================================================================
 
 
 
-read -p 'Digite o hostname do primeiro servidor: ' SRV_1
-read -p 'Digite o IP do primeiro servidor: ' SRV_1_IP
-read -p 'Digite o hostname do segundo servidor: ' SRV_2
-read -p 'Digite o IP do segundo servidor: ' SRV_2_IP
-read -p 'Digite o hostname do terceiro servidor: ' SRV_3
-read -p 'Digite o IP do terceiro servidor: ' SRV_3_IP
+# Python script to generate a file with IP and hostname for the hosts of the cluster:
+
+
+cat << EOF > hosts_gen.py
+from sys import argv
+
+print()
+N_HOSTS = int(input('How many servers will be part of the cluster?: '))
+print()
+hosts_dict = {}
+
+with open(argv[1], '+wt') as f:
+    for i in range(N_HOSTS):
+        host_name = input('Hostname for the host {}: '.format(i))
+        host_ip = input('IP for the the host {}: '.format(i))
+        print()
+
+        f.write('{} {}\n'.format(host_ip, host_name))
+EOF
+
+
+
+# Execute the script (the first entry will be the master node):
+
+python3 hosts_gen.py /tmp/myhosts
+
+
+
+# Get the master node hostname:
+
+export MASTER_NODE=`head -1 /tmp/myhosts | awk '{print $2}'`
 
 
 
 # The /etc/hosts file:
 
-cat << EOF >> /etc/hosts
-${SRV_1_IP} ${SRV_1}.local ${SRV_1}
-${SRV_2_IP} ${SRV_2}.local ${SRV_2}
-${SRV_3_IP} ${SRV_3}.local ${SRV_3}
-EOF
+cat /tmp/myhosts /etc/hosts
 
 
 
@@ -159,7 +173,7 @@ cat << EOF > ${HADOOP_CONF_DIR}/core-site.xml
 <configuration>
 <property>
         <name>fs.defaultFS</name>
-        <value>hdfs://${SRV_1}:9000/</value>
+        <value>hdfs://${MASTER_NODE}:9000/</value>
 </property>
 <property>
         <name>dfs.permissions.enabled</name>
@@ -180,7 +194,7 @@ cat << EOF > ${HADOOP_CONF_DIR}/hdfs-site.xml
 <configuration>
 <property>
  <name>dfs.namenode.secondary.http-address</name>
-        <value>${SRV_1}:50090</value>
+        <value>${MASTER_NODE}:50090</value>
         <description>Secondary NameNode hostname</description>
 </property>
 <property>
@@ -286,16 +300,14 @@ EOF
 
 # masters file:
 
-echo "${SRV_1}" > ${HADOOP_CONF_DIR}/masters
+echo "${MASTER_NODE}" > ${HADOOP_CONF_DIR}/masters
 
 
 
 # workers file:
 
-cat << EOF > ${HADOOP_CONF_DIR}/workers
-${SRV_2}
-${SRV_3}
-EOF
+fgrep -v ${MASTER_NODE} /tmp/myhosts > ${HADOOP_CONF_DIR}/workers
+
 
 
 
