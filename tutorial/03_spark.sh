@@ -102,7 +102,7 @@ EOF
 
 # 
 
-hdfs dfs-mkdir /tmp
+hdfs dfs -mkdir /tmp
 
 
 
