@@ -11,19 +11,18 @@
 
 cat << EOF > hosts_gen.py
 from sys import argv
-
 print()
 N_HOSTS = int(input('How many servers will be part of the cluster?: '))
+DOMAIN = input('Type the domain: ')
 print()
 hosts_dict = {}
-
 with open(argv[1], '+wt') as f:
     for i in range(N_HOSTS):
         host_name = input('Hostname for the host {}: '.format(i))
         host_ip = input('IP for the the host {}: '.format(i))
         print()
-
-        f.write('{} {}\n'.format(host_ip, host_name))
+        msg = '{} {} {}.{}\n'.format(host_ip, host_name, host_name, DOMAIN)
+        f.write(msg)
 EOF
 
 
