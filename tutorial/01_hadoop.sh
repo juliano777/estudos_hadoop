@@ -234,6 +234,12 @@ cat << EOF > ${HADOOP_CONF_DIR}/hdfs-site.xml
         <name>dfs.replication</name>
         <value>3</value>
     </property>
+    
+    <property>
+        <name>dfs.hosts.exclude</name>
+        <value>${HADOOP_CONF_DIR}/dfs.exclude</value>
+        <final>true</final>
+    </property>
 </configuration>
 EOF
 
@@ -459,7 +465,7 @@ export HADOOP_ROOT_LOGGER=DEBUG,console
 
 # Start the data node service:
 
-hdfs --config ${HADOOP_CONF_DIR} --daemon start datanode
+hdfs --config ${HADOOP_CONF_DIR} --workers --daemon start datanode
 
 "
 9864
@@ -472,7 +478,7 @@ hdfs --config ${HADOOP_CONF_DIR} --daemon start datanode
 
 # Start the journal node service:
 
-hdfs --config ${HADOOP_CONF_DIR} --daemon start journalnode
+hdfs --config ${HADOOP_CONF_DIR} --workers --daemon start journalnode
 
 "
 8480
@@ -482,7 +488,10 @@ hdfs --config ${HADOOP_CONF_DIR} --daemon start journalnode
 
 # Start the name node service:
 
-hdfs --config ${HADOOP_CONF_DIR} --daemon start namenode
+hdfs --config ${HADOOP_CONF_DIR} \
+    --workers \
+    --hostnames `hdfs getconf -namenodes` \
+    --daemon start namenode
 
 "
 9000
@@ -493,7 +502,10 @@ hdfs --config ${HADOOP_CONF_DIR} --daemon start namenode
 
 # Start the secondary name node service:
 
-hdfs --config ${HADOOP_CONF_DIR} --daemon start secondarynamenode
+hdfs --config ${HADOOP_CONF_DIR} \
+    --workers \
+    --hostnames `hdfs getconf -secondaryNamenodes` \
+    --daemon start secondarynamenode
 
 "
 50090
@@ -538,3 +550,7 @@ jps
 107373 Jps
 105372 NameNode
 "
+
+
+
+hdfs dfsadmin -report
