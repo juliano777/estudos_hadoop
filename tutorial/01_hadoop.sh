@@ -33,9 +33,19 @@ python3 hosts_gen.py /tmp/myhosts
 
 
 
-# Get the master node hostname:
+# Get the name node hostname:
 
-export MASTER_NODE=`head -1 /tmp/myhosts | awk '{print $2}'`
+read -p 'What is the Name Node? (IP / hostname / FQDN): ' NAME_NODE
+
+export NAME_NODE
+
+
+
+# Get the secondary name node hostname:
+
+read -p 'What is the Secondary Name Node? (IP / hostname / FQDN): ' S_NAME_NODE
+
+export S_NAME_NODE
 
 
 
@@ -172,7 +182,7 @@ cat << EOF > ${HADOOP_CONF_DIR}/core-site.xml
 <configuration>
 <property>
         <name>fs.defaultFS</name>
-        <value>hdfs://${MASTER_NODE}:9000/</value>
+        <value>hdfs://${NAME_NODE}:9000/</value>
 </property>
 <property>
         <name>dfs.permissions.enabled</name>
@@ -191,29 +201,39 @@ EOF
 
 cat << EOF > ${HADOOP_CONF_DIR}/hdfs-site.xml
 <configuration>
-<property>
- <name>dfs.namenode.secondary.http-address</name>
-        <value>${MASTER_NODE}:50090</value>
-        <description>Secondary NameNode hostname</description>
-</property>
-<property>
-        <name>dfs.datanode.data.dir</name>
+    <property>
+        <name>dfs.namenode.secondary.http-address</name>
+        <value>${NAME_NODE}:50090</value>
+        <description>Secondary NameNode hostname</description>
+    </property>
+
+    <property> 
+        <name>dfs.secondary.http.address</name>
+        <value>${S_NAME_NODE}:50090</value>
+        <description>SecondaryNameNodeHostname</description>
+    </property>
+
+    <property>
+        <name>dfs.datanode.data.dir</name>
         <value>${HADOOP_DATANODE_DIR}</value>
         <final>true</final>
-</property>
-<property>
-        <name>dfs.namenode.name.dir</name>
-        <value>${HADOOP_NAMENODE_DIR}</value>
-        <final>true</final>
-</property>
-<property>
-        <name>dfs.blocksize</name>
+    </property>
+
+    <property>
+       <name>dfs.namenode.name.dir</name>
+       <value>${HADOOP_NAMENODE_DIR}</value>
+       <final>true</final>
+    </property>
+
+    <property>
+        <name>dfs.blocksize</name>
         <value>67108864</value>
-</property>
-<property>
-        <name>dfs.replication</name>
+    </property>
+
+    <property>
+        <name>dfs.replication</name>
         <value>3</value>
-</property>
+    </property>
 </configuration>
 EOF
 
@@ -299,13 +319,13 @@ EOF
 
 # masters file:
 
-echo "${MASTER_NODE}" > ${HADOOP_CONF_DIR}/masters
+echo "${NAME_NODE}" > ${HADOOP_CONF_DIR}/masters
 
 
 
 # workers file:
 
-fgrep -v ${MASTER_NODE} /tmp/myhosts | awk '{print $2}' > \
+fgrep -v ${NAME_NODE} /tmp/myhosts | awk '{print $2}' > \
 	${HADOOP_CONF_DIR}/workers
 
 
