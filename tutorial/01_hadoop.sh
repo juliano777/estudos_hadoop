@@ -199,49 +199,9 @@ EOF
 
 # The HDFS configuration file:
 
-cat << EOF > ${HADOOP_CONF_DIR}/hdfs-site.xml
-<configuration>
-    <property>
-        <name>dfs.namenode.http-address</name>
-        <value>${NAME_NODE}:50090</value>
-        <description>NameNode ${NAME_NODE}</description>
-    </property>
-
-    <property>
-        <name>dfs.namenode.secondary.http-address</name>
-        <value>${S_NAME_NODE}:50090</value>
-        <description>Secondary NameNode ${S_NAME_NODE}</description>
-    </property>
-
-    <property>
-        <name>dfs.datanode.data.dir</name>
-        <value>${HADOOP_DATANODE_DIR}</value>
-        <final>true</final>
-    </property>
-
-    <property>
-       <name>dfs.namenode.name.dir</name>
-       <value>${HADOOP_NAMENODE_DIR}</value>
-       <final>true</final>
-    </property>
-
-    <property>
-        <name>dfs.blocksize</name>
-        <value>67108864</value>
-    </property>
-
-    <property>
-        <name>dfs.replication</name>
-        <value>3</value>
-    </property>
-    
-    <property>
-        <name>dfs.hosts.exclude</name>
-        <value>${HADOOP_CONF_DIR}/dfs.exclude</value>
-        <final>true</final>
-    </property>
-</configuration>
-EOF
+eval "cat << EOF > ${HADOOP_CONF_DIR}/hdfs-site.xml
+`</tmp/hdfs-site.xml`
+EOF"
 
 
 
