@@ -444,5 +444,12 @@ jps
 "
 
 
+# Report:
 
 hdfs dfsadmin -report
+
+
+
+# Get a value from a configuration:
+
+hdfs getconf -confKey yarn.scheduler.minimum-allocation-mb
