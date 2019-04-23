@@ -453,3 +453,18 @@ hdfs dfsadmin -report
 # Get a value from a configuration:
 
 hdfs getconf -confKey yarn.scheduler.minimum-allocation-mb
+
+
+# ============================================================================
+# How to add a new node in cluster
+# ============================================================================
+
+# 1) Include the IP / hostname / FQDN of the datanode in ${HADOOP_CONF_DIR}/workers
+
+# 2) 
+
+
+
+
+
+
