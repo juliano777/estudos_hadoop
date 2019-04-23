@@ -178,22 +178,9 @@ su - hadoop -c "\
 
 # The main Hadoop configuration file:
 
-cat << EOF > ${HADOOP_CONF_DIR}/core-site.xml
-<configuration>
-<property>
-        <name>fs.defaultFS</name>
-        <value>hdfs://${NAME_NODE}:9000/</value>
-</property>
-<property>
-        <name>dfs.permissions.enabled</name>
-        <value>false</value>
-</property>
-<property>
-        <name>hadoop.tmp.dir</name>
-        <value>${HADOOP_TMP_DIR}</value>
-</property>
-</configuration>
-EOF
+eval "cat << EOF > ${HADOOP_CONF_DIR}/core-site.xml
+`</tmp/core-site.xml`
+EOF"
 
 
 
