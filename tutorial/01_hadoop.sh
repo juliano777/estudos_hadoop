@@ -207,70 +207,15 @@ EOF"
 
 # The Map Reduce configuration file:
 
-cat << EOF > ${HADOOP_CONF_DIR}/mapred-site.xml
-<configuration>
-
-<property>
-    <name>mapreduce.framework.name</name>
-    <value>yarn</value>
-</property>
-
-<property>
-    <name>mapreduce.map.memory.mb</name>
-    <value>2048</value>
-</property>
-
-<property>
-    <name>mapreduce.reduce.memory.mb</name>
-    <value>4096</value>
-</property>
-
-</configuration>
-EOF
+cat /tmp/mapred-site.xml ${HADOOP_CONF_DIR}/mapred-site.xml
 
 
 
 # The Yarn configuration file:
 
-cat << EOF > ${HADOOP_CONF_DIR}/yarn-site.xml
-<configuration>
-    <property>
-        <name>yarn.nodemanager.aux-services</name>
-        <value>mapreduce_shuffle</value>
-    </property>
-
-    <property>
-        <name>yarn.nodemanager.aux-services.mapreduce.shuffle.class</name>
-        <value>org.apache.hadoop.mapred.ShuffleHandler</value>
-    </property>
-
-    <property>
-        <name>yarn.app.mapreduce.am.env</name>
-        <value>HADOOP_MAPRED_HOME=${HADOOP_MAPRED_HOME}</value>
-    </property>
-
-    <property>
-        <name>mapreduce.map.env</name>
-        <value>HADOOP_MAPRED_HOME=${HADOOP_MAPRED_HOME}</value>
-    </property>
-
-    <property>
-        <name>mapreduce.reduce.env</name>
-        <value>HADOOP_MAPRED_HOME=${HADOOP_MAPRED_HOME}</value>
-    </property>
-
-    <property>
-        <name>yarn.scheduler.maximum-allocation-vcores</name>
-        <value>1</value>
-    </property>
-
-    <property>
-        <name>yarn.scheduler.minimum-allocation-mb</name>
-        <value>1024</value>
-    </property>
-
-</configuration>
-EOF
+eval "cat << EOF > ${HADOOP_CONF_DIR}/yarn-site.xml
+`</tmp/yarn-site.xml`
+EOF"
 
 
 
