@@ -447,7 +447,8 @@ hdfs getconf -confKey yarn.scheduler.minimum-allocation-mb
 
 
 # 1) Include the IP / hostname / FQDN of the datanode in 
-# ${HADOOP_CONF_DIR}/dfs.include
+# dfs.include and workers file in ${HADOOP_CONF_DIR}/
+# This files must have all datanodes of the cluster.
 
 # 2) In Namenode execute:
 
