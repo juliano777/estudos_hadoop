@@ -49,11 +49,11 @@
         <value>${HADOOP_CONF_DIR}/dfs.exclude</value>
         <final>true</final>
     </property>
-    <!--
+    
     <property>
         <name>dfs.hosts</name>
-	<value>${HADOOP_CONF_DIR}/workers</value>
+	<value>${HADOOP_CONF_DIR}/dfs.include</value>
 	<final>true</final>
     </property>
-    -->
+    
 </configuration>

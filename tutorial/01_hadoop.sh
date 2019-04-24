@@ -355,29 +355,6 @@ export HADOOP_ROOT_LOGGER=DEBUG,console
 # Starting Services Manually
 # ============================================================================
 
-# Start the data node service:
-
-hdfs --config ${HADOOP_CONF_DIR} --workers --daemon start datanode
-
-"
-9864
-9866
-9867
-33582
-"
-
-
-
-# Start the journal node service:
-
-hdfs --config ${HADOOP_CONF_DIR} --workers --daemon start journalnode
-
-"
-8480
-8485
-"
-
-
 # Start the name node service:
 
 hdfs --config ${HADOOP_CONF_DIR} \
@@ -392,12 +369,43 @@ hdfs --config ${HADOOP_CONF_DIR} \
 
 
 
+# Start the data node service:
+
+hdfs --config ${HADOOP_CONF_DIR} --workers --daemon start datanode
+
+"
+9864
+9866
+9867
+33582
+"
+
+
+
 # Start the secondary name node service:
 
 hdfs --config ${HADOOP_CONF_DIR} \
     --workers \
     --hostnames `hdfs getconf -secondaryNamenodes` \
     --daemon start secondarynamenode
+
+
+
+# Start the journal node service:
+
+hdfs --config ${HADOOP_CONF_DIR} --workers --daemon start journalnode
+
+"
+8480
+8485
+"
+
+
+
+
+
+
+
 
 "
 50090
@@ -426,6 +434,15 @@ yarn --config ${HADOOP_CONF_DIR} --daemon start resourcemanager
 8033
 8088
 "
+
+
+
+# Start the node manager service:
+
+yarn --config ${HADOOP_CONF_DIR} --daemon start nodemanager
+
+
+
 
 
 
@@ -461,10 +478,20 @@ hdfs getconf -confKey yarn.scheduler.minimum-allocation-mb
 
 # 1) Include the IP / hostname / FQDN of the datanode in ${HADOOP_CONF_DIR}/workers
 
-# 2) 
+# 2) add new node entry in workers file
+
+# 3) In Namenode execute:
+
+hdfs dfsadmin -refreshNodes
+
+# 4) In new node execute:
+
+hdfs --config ${HADOOP_CONF_DIR} --daemon start datanode
 
 
 
 
+
+hdfs getconf -nameNodes
 
 
