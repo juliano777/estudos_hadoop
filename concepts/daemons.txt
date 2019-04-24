@@ -1,0 +1,24 @@
+Hadoop Daemons
+
+Computation layer
+
+- Resource Manager (Master node for Yarn)
+
+
+
+- Node Manager (Slave node for Yarn)
+
+
+
+Storage layer
+
+- NameNode (Master node for HDFS)
+
+    Also known as master node, stores metadata, such as: number of blocks, their location, which Datanode, etc.
+
+
+- DataNode (Slaves nodes for HDFS)
+
+
+
+
