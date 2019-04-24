@@ -362,23 +362,11 @@ hdfs --config ${HADOOP_CONF_DIR} \
     --hostnames `hdfs getconf -namenodes` \
     --daemon start namenode
 
-"
-9000
-9870
-"
-
 
 
 # Start the data node service:
 
 hdfs --config ${HADOOP_CONF_DIR} --workers --daemon start datanode
-
-"
-9864
-9866
-9867
-33582
-"
 
 
 
@@ -395,45 +383,17 @@ hdfs --config ${HADOOP_CONF_DIR} \
 
 hdfs --config ${HADOOP_CONF_DIR} --workers --daemon start journalnode
 
-"
-8480
-8485
-"
-
-
-
-
-
-
-
-
-"
-50090
-"
-
 
 
 # Start the HTTP FS service: 
 
 hdfs --config ${HADOOP_CONF_DIR} --daemon start httpfs
 
-"
-14000
-"
-
 
 
 # Start the resource manager service:
 
 yarn --config ${HADOOP_CONF_DIR} --daemon start resourcemanager
-
-"
-8030
-8031
-8032
-8033
-8088
-"
 
 
 
@@ -443,22 +403,10 @@ yarn --config ${HADOOP_CONF_DIR} --daemon start nodemanager
 
 
 
-
-
-
 # Java Process Status:
 
 jps
 
-"
-105253 DataNode
-105559 JournalNode
-105960 ResourceManager
-105706 SecondaryNameNode
-107242 HttpFSServerWebServer
-107373 Jps
-105372 NameNode
-"
 
 
 # Report:
