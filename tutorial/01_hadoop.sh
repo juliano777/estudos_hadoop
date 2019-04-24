@@ -355,7 +355,7 @@ export HADOOP_ROOT_LOGGER=DEBUG,console
 # Starting Services Manually
 # ============================================================================
 
-# Start the name node service:
+# Start the namenode service:
 
 hdfs --config ${HADOOP_CONF_DIR} \
     --workers \
@@ -364,13 +364,13 @@ hdfs --config ${HADOOP_CONF_DIR} \
 
 
 
-# Start the data node service:
+# Start the datanode service:
 
 hdfs --config ${HADOOP_CONF_DIR} --workers --daemon start datanode
 
 
 
-# Start the secondary name node service:
+# Start the secondary namenode service:
 
 hdfs --config ${HADOOP_CONF_DIR} \
     --workers \
@@ -424,11 +424,32 @@ hdfs getconf -confKey yarn.scheduler.minimum-allocation-mb
 # How to add a new node in cluster
 # ============================================================================
 
-# 1) Include the IP / hostname / FQDN of the datanode in ${HADOOP_CONF_DIR}/workers
+# 0) Add the following properties:
 
-# 2) add new node entry in workers file
+# hdfs-site.xml
 
-# 3) In Namenode execute:
+"
+    <property>
+        <name>dfs.hosts</name>
+        <value>${HADOOP_CONF_DIR}/dfs.include</value>
+        <final>true</final>
+    </property>
+"
+
+# mapred-site.xml
+
+"
+    <property>
+        <name>mapred.hosts</name>
+        <value>${HADOOP_CONF_DIR}/dfs.include</value>
+    </property>
+"
+
+
+# 1) Include the IP / hostname / FQDN of the datanode in 
+# ${HADOOP_CONF_DIR}/dfs.include
+
+# 2) In Namenode execute:
 
 hdfs dfsadmin -refreshNodes
 
