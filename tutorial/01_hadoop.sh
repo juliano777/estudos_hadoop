@@ -60,8 +60,9 @@ export YARN_RM_HOST
 
 # Get the Yarn Resource Manager Scheduler node host:
 
-read -p 'What is the Yarn Resource Manager Scheduler? (IP / hostname / FQDN): '\
- YARN_RMS_HOST
+read -p \
+'What is the Yarn Resource Manager Scheduler? (IP / hostname / FQDN): ' \
+YARN_RMS_HOST
 
 export YARN_RMS_HOST
 
