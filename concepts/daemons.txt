@@ -15,6 +15,7 @@ Storage layer
 - NameNode (Master node for HDFS)
 
     Also known as master node, stores metadata, such as: number of blocks, their location, which Datanode, etc.
+    Manage file system namespace and client's access to files and performs executions of file system such as naming, closing, opening files and directories.
 
 
 - DataNode (Slaves nodes for HDFS)
