@@ -222,7 +222,7 @@ EOF"
 
 # The Map Reduce configuration file:
 
-cat /tmp/mapred-site.xml ${HADOOP_CONF_DIR}/mapred-site.xml
+cat /tmp/mapred-site.xml > ${HADOOP_CONF_DIR}/mapred-site.xml
 
 
 
