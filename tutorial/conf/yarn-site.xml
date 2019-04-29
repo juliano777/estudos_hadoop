@@ -6,23 +6,17 @@
      
          - HADOOP_MAPRED_HOME
          - YARN_RM_HOST
-         - YARN_RMS_HOST
          - YARN_NM_HOST
     -->
 
     <property>
-        <name>yarn.resourcemanager.address</name>
-        <value>${YARN_RM_HOST}:8032</value>
+        <name>yarn.resourcemanager.hostname</name>
+        <value>${YARN_RM_HOST}</value>
     </property>
 
     <property>
-        <name>yarn.resourcemanager.scheduler.address</name>
-        <value>${YARN_RMS_HOST}:8030</value>
-    </property>
-
-    <property>
-        <name>yarn.nodemanager.address</name>
-        <value>${YARN_RMS_HOST}:8030</value>
+        <name>yarn.nodemanager.hostname</name>
+        <value>${YARN_NM_HOST}</value>
     </property>
 
     <property>
