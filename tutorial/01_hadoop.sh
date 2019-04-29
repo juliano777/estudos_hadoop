@@ -409,13 +409,13 @@ hdfs --config ${HADOOP_CONF_DIR} --daemon start httpfs
 
 
 
-# Start the resource manager service:
+# Start the resource manager service (at Resource Manager):
 
 yarn --config ${HADOOP_CONF_DIR} --daemon start resourcemanager
 
 
 
-# Start the node manager service:
+# Start the node manager service (at Node Manager):
 
 yarn --config ${HADOOP_CONF_DIR} --daemon start nodemanager
 
