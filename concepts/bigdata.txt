@@ -13,5 +13,6 @@ Componentes Básicos do Hadoop
 Grandes Componentes do Ecossistema Hadoop
 
 - Sqoop: Ferramenta de linha de comando para ingestão de dados entre o Hadoop e bases de dados relacionais. Seu nome significa "SQL for Hadoop";
-- HBase: Banco de dados orientado a colunas, suporta armazenamento chave-valor. A interação se dá com a linguagem HQL, que é muito similar à linguagem SQL;
-- Pig: 
+- HBase: Banco de dados orientado a colunas, armazenamento chave-valor. A interação se dá com a linguagem HQL, que é muito similar à linguagem SQL;
+- Pig: Programação de alto nível sobre o MapReduce. Utiliza a linguagem chamada Pig Latin. Resolve questões de análise de dados em fluxos de dados.
+- 
