@@ -1,0 +1,17 @@
+O que é o Hadoop?
+
+    Apache Hadoop é um framework open source para armazenamento e processamento em larga escala de conjuntos de dados em clusters.
+    A ideia essencial do Hadoop é em vez de mover os dados para o processamento, move o processamento para os dados.
+
+Componentes Básicos do Hadoop
+
+- Hadoop Common: Contém bibliotecas e utilitários necessários para outros módulos do Hadoop;
+- Hadoop Distributed File System (HDFS): É um sistema de arquivos escalável distribuído, feito para o framework Hadoop;
+- Hadoop YARN: É um gerenciador de recursos para gerenciar recursos computacionais e utilizá-los para agendar usuários e aplicações;
+- Hadoop MapReduce: É um modelo de programação que escala dados através de vários diferentes processos.
+
+Grandes Componentes do Ecossistema Hadoop
+
+- Sqoop: Ferramenta de linha de comando para ingestão de dados entre o Hadoop e bases de dados relacionais. Seu nome significa "SQL for Hadoop";
+- HBase: Banco de dados orientado a colunas, suporta armazenamento chave-valor. A interação se dá com a linguagem HQL, que é muito similar à linguagem SQL;
+- Pig: 
