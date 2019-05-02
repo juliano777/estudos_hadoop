@@ -19,3 +19,5 @@ Grandes Componentes do Ecossistema Hadoop
 - Oozie: Sistema agendador de workflow para jobs do Hadoop. Suporta MapReduce, Pig, Hive, Sqoop, Spark e etc;
 - Zookeeper: Centralized service for maintaining , configuration information, naming, providing distributed synchronization and providing group services;
 - Flume: Serviço distribuído para eficientemente coletar, agregar e mover grande quantidade de dados de logs, cuja arquitetura é muito simples baseada em streaming e fluxos de dados;
+- Impala: É um software para MPP (Massively Parallel Processing), que utiliza engine SQL para dados armazenados no cluster Hadoop;
+- Spark: 
