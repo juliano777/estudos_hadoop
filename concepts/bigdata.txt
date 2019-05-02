@@ -10,6 +10,18 @@ Componentes Básicos do Hadoop
 - Hadoop YARN: É um gerenciador de recursos para gerenciar recursos computacionais e utilizá-los para agendar usuários e aplicações;
 - Hadoop MapReduce: É um modelo de programação que escala dados através de vários diferentes processos.
 
+NameNode
+    
+    Um servidor master que gerencia o namespace do sistema de arquivos e regula o acesso aos arquivos pelos clientes.
+
+DataNodes
+
+ - Gerenciam o armazenamento;
+ - Serve requisões de leitura e escrita dos clientes;
+ - Criação de blocos, remoção e replicação baseando em instruções do NameNode.
+
+    
+
 Grandes Componentes do Ecossistema Hadoop
 
 - Sqoop: Ferramenta de linha de comando para ingestão de dados entre o Hadoop e bases de dados relacionais. Seu nome significa "SQL for Hadoop";
