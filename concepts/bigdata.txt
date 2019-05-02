@@ -15,4 +15,6 @@ Grandes Componentes do Ecossistema Hadoop
 - Sqoop: Ferramenta de linha de comando para ingestão de dados entre o Hadoop e bases de dados relacionais. Seu nome significa "SQL for Hadoop";
 - HBase: Banco de dados NoSQL orientado a colunas, armazenamento chave-valor. 
 - Pig: Programação de alto nível sobre o MapReduce. Utiliza a linguagem chamada Pig Latin. Resolve questões de análise de dados em fluxos de dados.
-- Hive: A interação se dá com a linguagem HQL, que é muito similar à linguagem SQL;
+- Hive: É um software de data warehouse que interage com os dados residentes no armazenamento distribuído (e. g. HDFS, S3A, etc). A interação se dá com a linguagem HQL (Hive Query Language ou Hive QL), que é muito similar à linguagem SQL;
+- Oozie: Sistema agendador de workflow para jobs do Hadoop. Suporta MapReduce, Pig, Hive, Sqoop, Spark e etc;
+- Zookeeper: Serviço centralizado de manutenção, informações de configuração, nomenclatura, fornecimento de sincronização distribuída e fornecimento 
