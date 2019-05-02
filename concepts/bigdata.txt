@@ -17,4 +17,5 @@ Grandes Componentes do Ecossistema Hadoop
 - Pig: Programação de alto nível sobre o MapReduce. Utiliza a linguagem chamada Pig Latin. Resolve questões de análise de dados em fluxos de dados.
 - Hive: É um software de data warehouse que interage com os dados residentes no armazenamento distribuído (e. g. HDFS, S3A, etc). A interação se dá com a linguagem HQL (Hive Query Language ou Hive QL), que é muito similar à linguagem SQL;
 - Oozie: Sistema agendador de workflow para jobs do Hadoop. Suporta MapReduce, Pig, Hive, Sqoop, Spark e etc;
-- Zookeeper: Serviço centralizado de manutenção, informações de configuração, nomenclatura, fornecimento de sincronização distribuída e fornecimento 
+- Zookeeper: Centralized service for maintaining , configuration information, naming, providing distributed synchronization and providing group services;
+- Flume: Serviço distribuído para eficientemente coletar, agregar e mover grande quantidade de dados de logs, cuja arquitetura é muito simples baseada em streaming e fluxos de dados;
