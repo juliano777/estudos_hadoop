@@ -415,7 +415,7 @@ yarn --config ${HADOOP_CONF_DIR} --daemon start resourcemanager
 
 
 
-# Start the node manager service (at Node Manager):
+# Start the node manager service (all nodes):
 
 yarn --config ${HADOOP_CONF_DIR} --daemon start nodemanager
 
