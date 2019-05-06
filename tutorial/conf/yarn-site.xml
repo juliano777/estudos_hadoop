@@ -6,17 +6,11 @@
      
          - HADOOP_MAPRED_HOME
          - YARN_RM_HOST
-         - YARN_NM_HOST
     -->
 
     <property>
         <name>yarn.resourcemanager.hostname</name>
         <value>${YARN_RM_HOST}</value>
-    </property>
-
-    <property>
-        <name>yarn.nodemanager.hostname</name>
-        <value>${YARN_NM_HOST}</value>
     </property>
 
     <property>
