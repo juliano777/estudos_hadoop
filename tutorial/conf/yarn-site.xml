@@ -4,8 +4,8 @@
 
          Environment Variables:
      
-         - HADOOP_MAPRED_HOME
          - YARN_RM_HOST
+         - HADOOP_MAPRED_HOME
     -->
 
     <property>
