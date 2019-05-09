@@ -184,6 +184,18 @@ mv hadoop/etc/hadoop /etc/
 
 
 
+# Create de includes and excludes files for Distributed File System and 
+# Resource Manager:
+#
+# dfs.exclude
+# dfs.include
+# rm.exclude
+# rm.include
+
+touch ${HADOOP_CONF_DIR}/{dfs,rm}.{in,ex}clude
+
+
+
 # SSH keys:
 
 su - hadoop -c "\
@@ -439,7 +451,7 @@ hdfs getconf -confKey yarn.scheduler.minimum-allocation-mb
 
 
 # ============================================================================
-# How to add a new node in cluster
+# How to add a new datanode in cluster (Commissioning of Datanode)
 # ============================================================================
 
 # 0) Add the following properties:
@@ -454,12 +466,12 @@ hdfs getconf -confKey yarn.scheduler.minimum-allocation-mb
     </property>
 "
 
-# mapred-site.xml
+# yarn-site.xml
 
 "
     <property>
-        <name>mapred.hosts</name>
-        <value>${HADOOP_CONF_DIR}/dfs.include</value>
+        <name>yarn.resourcemanager.nodes.include-path</name>
+        <value>${HADOOP_CONF_DIR}/rm.include</value>
     </property>
 "
 
@@ -475,6 +487,40 @@ hdfs dfsadmin -refreshNodes
 # 4) In new node execute:
 
 hdfs --config ${HADOOP_CONF_DIR} --daemon start datanode
+
+
+
+# ============================================================================
+# How to remove a datanode in cluster (Decommissioning of Datanode)
+# ============================================================================
+
+# 0) Add the following properties:
+
+# hdfs-site.xml
+
+"
+    <property>
+        <name>dfs.hosts.exclude</name>
+        <value>${HADOOP_CONF_DIR}/dfs.exclude</value>
+        <final>true</final>
+    </property>
+"
+
+# yarn-site.xml
+
+"
+    <property>
+        <name>yarn.resourcemanager.nodes.exclude-path</name>
+        <value>${HADOOP_CONF_DIR}/rm.exclude</value>
+    </property>
+"
+
+
+
+# 1) Include the IP / hostname / FQDN of the datanode in 
+# dfs.exclude and remove from workers file in ${HADOOP_CONF_DIR}/
+
+
 
 
 
