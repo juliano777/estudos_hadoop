@@ -40,8 +40,13 @@
     </property>
 
     <property>
-        <name>dfs.replication</name>
+        <name>dfs.namenode.replication.min</name>
         <value>3</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.safemode.threshold-pct</name>
+        <value>0</value>
     </property>
     
     <property>

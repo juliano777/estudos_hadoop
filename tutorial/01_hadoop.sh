@@ -301,15 +301,15 @@ hdfs dfs -mkdir /teste
 
 
 
-# Download a file (in this case, the Linux kernel) to /tmp directory:
+# Create a 5GB file for test:
 
-wget -c https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-4.15.3.tar.xz -P /tmp
+dd if=/dev/zero of=foo.data bs=1M count=5120
 
 
 
-# Put the downloaded file to /teste directory in HDFS:
+# Put the created file to /teste directory in HDFS:
 
-hdfs dfs -put /tmp/linux-4.15.3.tar.xz /teste/
+hdfs dfs -put foo.data /teste/
 
 
 
