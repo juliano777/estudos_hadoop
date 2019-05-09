@@ -475,16 +475,24 @@ hdfs getconf -confKey yarn.scheduler.minimum-allocation-mb
 
 
 # 1) Include the IP / hostname / FQDN of the datanode in 
-# dfs.include and workers file in ${HADOOP_CONF_DIR}/
+# hosts.include and workers file in ${HADOOP_CONF_DIR}/
 # This files must have all datanodes of the cluster.
 
-# 2) In Namenode execute:
+# 2) On Resource Manager execute:
+
+yarn rmadmin -refreshNodes
+
+# 3) On Namenode execute:
 
 hdfs dfsadmin -refreshNodes
 
 # 4) In new node execute:
 
 hdfs --config ${HADOOP_CONF_DIR} --daemon start datanode
+
+# 5) Check the status:
+
+hdfs dfsadmin -report
 
 
 
@@ -518,7 +526,21 @@ hdfs --config ${HADOOP_CONF_DIR} --daemon start datanode
 # 1) Include the IP / hostname / FQDN of the datanode in 
 # dfs.exclude and remove from workers file in ${HADOOP_CONF_DIR}/
 
+# 2) On Resource Manager execute:
 
+yarn rmadmin -refreshNodes
+
+# 3) On Namenode execute:
+
+hdfs dfsadmin -refreshNodes
+
+# 4) In new node execute:
+
+hdfs --config ${HADOOP_CONF_DIR} --daemon stop datanode
+
+# 5) Check the status:
+
+hdfs dfsadmin -report
 
 
 
