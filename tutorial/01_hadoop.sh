@@ -330,23 +330,23 @@ hdfs dfs -ls -h /teste
 
 "
 Found 1 items
--rw-r--r--   1 hadoop supergroup     97.5 M 2018-02-13 17:02 /teste/linux-4.15.3.tar.xz
+-rw-r--r--   3 hadoop supergroup        5 G 2019-05-09 13:07 /teste/foo.data
 "
 
 
 
 # Get the file from the HDFS:
 
-hdfs dfs -get /teste/linux-4.15.3.tar.xz /tmp/
+hdfs dfs -get /teste/foo.data /tmp/
 
 
 
 # Check if the file is in the directory:
 
-ls -lh /tmp/linux-4.15.3.tar.xz
+ls -lh /tmp/foo.data
 
 "
--rw-r--r-- 1 hadoop hadoop 98M Feb 14 09:46 /tmp/linux-4.15.3.tar.xz
+-rw-r--r-- 1 hadoop hadoop 5,0G Mai  9 13:10 /tmp/foo.data
 "
 
 
