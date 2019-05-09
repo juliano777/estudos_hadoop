@@ -8,6 +8,7 @@
          - S_NAME_NODE
          - HADOOP_DATANODE_DIR
          - HADOOP_NAMENODE_DIR
+         - HADOOP_CONF_DIR
     -->
 
     <property>
