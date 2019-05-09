@@ -55,12 +55,12 @@
 
     <property>
         <name>yarn.resourcemanager.nodes.include-path</name>
-        <value>${HADOOP_CONF_DIR}/rm.include</value>
+        <value>${HADOOP_CONF_DIR}/hosts.include</value>
     </property>
 
     <property>
         <name>yarn.resourcemanager.nodes.exclude-path</name>
-        <value>${HADOOP_CONF_DIR}/rm.exclude</value>
+        <value>${HADOOP_CONF_DIR}/hosts.exclude</value>
     </property>
 
 

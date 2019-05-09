@@ -187,12 +187,10 @@ mv hadoop/etc/hadoop /etc/
 # Create de includes and excludes files for Distributed File System and 
 # Resource Manager:
 #
-# dfs.exclude
-# dfs.include
-# rm.exclude
-# rm.include
+# hosts.exclude
+# hosts.include
 
-touch ${HADOOP_CONF_DIR}/{dfs,rm}.{in,ex}clude
+touch ${HADOOP_CONF_DIR}/hosts.{in,ex}clude
 
 
 
@@ -461,7 +459,7 @@ hdfs getconf -confKey yarn.scheduler.minimum-allocation-mb
 "
     <property>
         <name>dfs.hosts</name>
-        <value>${HADOOP_CONF_DIR}/dfs.include</value>
+        <value>${HADOOP_CONF_DIR}/hosts.include</value>
         <final>true</final>
     </property>
 "
@@ -471,7 +469,7 @@ hdfs getconf -confKey yarn.scheduler.minimum-allocation-mb
 "
     <property>
         <name>yarn.resourcemanager.nodes.include-path</name>
-        <value>${HADOOP_CONF_DIR}/rm.include</value>
+        <value>${HADOOP_CONF_DIR}/hosts.include</value>
     </property>
 "
 
@@ -501,7 +499,7 @@ hdfs --config ${HADOOP_CONF_DIR} --daemon start datanode
 "
     <property>
         <name>dfs.hosts.exclude</name>
-        <value>${HADOOP_CONF_DIR}/dfs.exclude</value>
+        <value>${HADOOP_CONF_DIR}/hosts.exclude</value>
         <final>true</final>
     </property>
 "
@@ -511,7 +509,7 @@ hdfs --config ${HADOOP_CONF_DIR} --daemon start datanode
 "
     <property>
         <name>yarn.resourcemanager.nodes.exclude-path</name>
-        <value>${HADOOP_CONF_DIR}/rm.exclude</value>
+        <value>${HADOOP_CONF_DIR}/hosts.exclude</value>
     </property>
 "
 
