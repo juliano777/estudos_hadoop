@@ -5,10 +5,9 @@ Dependências
 
 aws-java-sdk
 aws-java-sdk-core
+aws-java-sdk-dynamodb
 aws-java-sdk-kms
 aws-java-sdk-s3
-aws-java-sdk-dynamodb
-hadoop-aws
 hadoop-aws
 httpclient
 jackson-annotations
